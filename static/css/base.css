@@ -1,0 +1,48 @@
+/* 阿里图标链接 */
+@font-face {
+    font-family: 'iconfont';  /* project id 467496 */
+    src: url('//at.alicdn.com/t/font_467496_5ioqi9o98nn1xlxr.eot');
+    src: url('//at.alicdn.com/t/font_467496_5ioqi9o98nn1xlxr.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_467496_5ioqi9o98nn1xlxr.woff') format('woff'),
+    url('//at.alicdn.com/t/font_467496_5ioqi9o98nn1xlxr.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_467496_5ioqi9o98nn1xlxr.svg#iconfont') format('svg');
+}
+
+.icon-zhuce {
+    font-family: "iconfont" !important;
+    font-size: 13px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.4px;
+    -moz-osx-font-smoothing: grayscale;
+    margin-top: 20px;
+}
+
+.card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    background-color: white;
+    padding: 16px 20px;
+    overflow: hidden;
+}
+
+/* 为了便于观察边框 */
+.myborder {
+    border: solid 1px black;
+}
+
+body {
+    background-color: #f4f5f5;
+}
+
+nav {
+    background-color: white !important;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none !important;
+}

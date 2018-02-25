@@ -1,0 +1,140 @@
+{% block doc %}
+    <!DOCTYPE html>
+    <html {% block html_attribs %}lang="zh-CN"{% endblock %}>
+    {% block html %}
+        <head>
+            {% block head %}
+                {% block metas %}
+                    <meta charset="utf-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+                {% endblock %}
+                <title>{% block title %}Bookstore{% endblock %}</title>
+                {% block styles %}
+                    <link href="{{ static('css/bootstrap.min.css') }}" rel="stylesheet">
+                    <link href="{{ static('css/base.css') }}" rel="stylesheet">
+                {% endblock %}
+            {% endblock %}
+        </head>
+        <body{% block body_attribs %}{% endblock %}>
+        {% block body %}
+            {% block navbar %}
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        {# 品牌和切换被分组以获得更好的移动显示 #}
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-1"
+                                    aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="">Bookstore</a>
+                        </div>
+                        {# 收集导航链接，表单和其他内容进行切换 #}
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="">
+                                        <span class="glyphicon glyphicon-home"></span> 首页</a>
+                                </li>
+                                {% if False %}
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-eye-open"></span> 关注</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <form class="navbar-form navbar-left">
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" placeholder="搜索">
+                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                </div>
+                            </form>
+                            <ul class="nav navbar-nav navbar-right">
+                                {% if False %}
+                                    <li>
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-bell"></span> 消息</a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-pencil"></span> 写博客</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           style="padding: 10px 15px;"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            <img class="img-circle"
+                                                 src=""
+                                                 width="30" height="30">
+                                        </a>
+                                        <ul class=" dropdown-menu" style="min-width:100%;">
+                                            <li>
+                                                <a href="">
+                                                    <span class="glyphicon glyphicon-user"></span> 我的主页</a>
+                                            </li>
+                                            <li>
+                                                <a href="">
+                                                    <span class="glyphicon glyphicon-cog"></span> 设置</a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <a href="">
+                                                    <span class="glyphicon glyphicon-log-out"></span> 退出</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-log-in"></span> 登录</a>
+                                    </li>
+                                    <li style="display:block;padding:13px 0;" class="text-muted">
+                                        |
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <span class="icon-zhuce">&#xe675;</span> 注册</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            {% endblock %}
+            {% block content %}
+                {# 60px是为了防止导航栏挡住下面的内容 #}
+                <div class="container" style="padding-top:60px">
+                    {# 弹出框 #}
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-info text-center fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {# 页面内容，已经包含在一个container下 #}
+                    {% block page_content %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            {% block scripts %}
+                <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                <script src="{{ static('js/bootstrap.min.js') }}"></script>
+            {% endblock %}
+        {% endblock %}
+        </body>
+    {% endblock %}
+    </html>
+{% endblock %}

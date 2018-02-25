@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/register.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="card col-md-4 col-md-offset-4">
+                <div class="register-head">
+                    <h1 class="text-center"><b>Bookstore</b></h1>
+                    <p class="text-center">阅读是一种生活习惯</p><br>
+                </div>
+                <ul class="nav nav-tabs nav-justified">
+                    <li role="presentation"><a href="{{ url('auth:login') }}">登录</a></li>
+                    <li role="presentation" class="active"><a href="{{ url('auth:register') }}">注册</a></li>
+                </ul>
+                <br>
+                <form class="register-form" method="post" action="{{ url('auth:register') }}">
+                    {{ csrf_input }}
+                    {{ register_form }}
+                    <input type="submit" class='btn btn-primary btn-block' value="注册"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+.card {
+    padding: 0 20px 20px;
+    margin-top: 20px;
+}
+
+#inputEmail, #inputPassword {
+    padding: 20px;
+}
+
+#inputEmail {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#inputPassword {
+    margin-bottom: 15px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.login-form .btn {
+    margin-top: 8px;
+}

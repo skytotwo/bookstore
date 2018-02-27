@@ -56,4 +56,6 @@ class LoginForm(forms.Form):
             'class': 'form-control'
         }))
     remember = forms.BooleanField(
-        label='', widget=forms.CheckboxInput(attrs={'id': 'remember'}))
+        required=False,
+        label='',
+        widget=forms.CheckboxInput(attrs={'id': 'remember'}))

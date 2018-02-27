@@ -1,0 +1,41 @@
+#index-carousel {
+    padding: 0;
+}
+
+#content-newbooks {
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+#index-content h3 {
+    margin-top: 15px;
+}
+
+.caption p {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.price {
+    font-size: 1.2em;
+    color: red;
+}
+
+.col-md-2 {
+    padding: 0;
+}
+
+.col-md-8 {
+    padding: 0 10px;
+}
+
+.thumbnail {
+    border-color: white;
+    padding-top: 10px;
+}
+
+.caption {
+    padding: 5px 16px 0 !important;
+}

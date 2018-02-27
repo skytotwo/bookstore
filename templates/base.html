@@ -8,7 +8,6 @@
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1">
-                    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
                 {% endblock %}
                 <title>{% block title %}Bookstore{% endblock %}</title>
                 {% block styles %}
@@ -22,29 +21,27 @@
             {% block navbar %}
                 <nav class="navbar navbar-default navbar-fixed-top">
                     <div class="container">
-                        {# 品牌和切换被分组以获得更好的移动显示 #}
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                                     data-target="#bs-example-navbar-collapse-1"
                                     aria-expanded="false">
-                                <span class="sr-only">Toggle navigation</span>
+                                <span class="sr-only">导航栏</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="">Bookstore</a>
+                            <a class="navbar-brand" href="{{ url('index') }}">Bookstore</a>
                         </div>
-                        {# 收集导航链接，表单和其他内容进行切换 #}
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="">
+                                    <a href="{{ url('index') }}">
                                         <span class="glyphicon glyphicon-home"></span> 首页</a>
                                 </li>
-                                {% if False %}
+                                {% if request.user.is_authenticated %}
                                     <li>
                                         <a href="">
-                                            <span class="glyphicon glyphicon-eye-open"></span> 关注</a>
+                                            <span class="glyphicon glyphicon-map-marker"></span> 安徽</a>
                                     </li>
                                 {% endif %}
                             </ul>
@@ -55,21 +52,24 @@
                                 </div>
                             </form>
                             <ul class="nav navbar-nav navbar-right">
-                                {% if False %}
-                                    <li>
-                                        <a href="#">
-                                            <span class="glyphicon glyphicon-bell"></span> 消息</a>
-                                    </li>
+                                {% if request.user.is_authenticated %}
                                     <li>
                                         <a href="">
-                                            <span class="glyphicon glyphicon-pencil"></span> 写博客</a>
+                                            <span class="glyphicon glyphicon-list-alt"></span> 订单</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('user:shoppingcart') }}">
+                                            <span class="glyphicon glyphicon-shopping-cart"></span> 购物车
+                                            <span class="badge">18</span>
+                                        </a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                        <a href="#" class="dropdown-toggle"
+                                           data-toggle="dropdown" role="button"
                                            style="padding: 10px 15px;"
                                            aria-haspopup="true" aria-expanded="false">
                                             <img class="img-circle"
-                                                 src=""
+                                                 src="{{ static('/images/avatar/1.jpg') }}"
                                                  width="30" height="30">
                                         </a>
                                         <ul class=" dropdown-menu" style="min-width:100%;">
@@ -79,25 +79,31 @@
                                             </li>
                                             <li>
                                                 <a href="">
+                                                    <span class="glyphicon glyphicon-bell"></span> 消息
+                                                    <span class="badge pull-right">54</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="">
                                                     <span class="glyphicon glyphicon-cog"></span> 设置</a>
                                             </li>
                                             <li role="separator" class="divider"></li>
                                             <li>
-                                                <a href="">
+                                                <a href="{{ url('auth:logout') }}">
                                                     <span class="glyphicon glyphicon-log-out"></span> 退出</a>
                                             </li>
                                         </ul>
                                     </li>
                                 {% else %}
                                     <li>
-                                        <a href="">
+                                        <a href="{{ url('auth:login') }}">
                                             <span class="glyphicon glyphicon-log-in"></span> 登录</a>
                                     </li>
                                     <li style="display:block;padding:13px 0;" class="text-muted">
                                         |
                                     </li>
                                     <li>
-                                        <a href="">
+                                        <a href="{{ url('auth:register') }}">
                                             <span class="icon-zhuce">&#xe675;</span> 注册</a>
                                     </li>
                                 {% endif %}
@@ -107,9 +113,7 @@
                 </nav>
             {% endblock %}
             {% block content %}
-                {# 60px是为了防止导航栏挡住下面的内容 #}
                 <div class="container" style="padding-top:60px">
-                    {# 弹出框 #}
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             {% if messages %}
@@ -124,7 +128,6 @@
                             {% endif %}
                         </div>
                     </div>
-                    {# 页面内容，已经包含在一个container下 #}
                     {% block page_content %}
                     {% endblock %}
                 </div>

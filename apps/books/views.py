@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from django.views.generic.base import View
 
-# Create your views here.
+
+class Create8BooksView(View):
+    def get(self, request):
+        pass

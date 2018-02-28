@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'include/macros.html' as macros %}
 
 {% block styles %}
     {{ super() }}
@@ -8,45 +9,29 @@
 {% block page_content %}
     <div class="row">
         <div class="col-md-2">
-            <div id="sidebar-left" class="card">
-                <h2>图书分类</h2>
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
+            <div id="sidebar-left">
+                <div style="position:fixed;width:195px;" id="category" class="panel-group">
+                    {% for category in categories %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#category{{ loop.index }}" data-toggle="collapse"
+                                       data-parent="#category">{{ category.name }}</a>
+                                </h4>
+                            </div>
+                            <div id="category{{ loop.index }}"
+                                 class="panel-collapse collapse{% if loop.first %} in{% endif %}">
+                                <div class="panel-body">
+                                    <ul>
+                                        {% for down in category.down.all() %}
+                                            <li><a href="">{{ down.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="col-md-8">
@@ -55,20 +40,15 @@
                     <li data-target="#index-carousel" data-slide-to="0" class="active"></li>
                     <li data-target="#index-carousel" data-slide-to="1"></li>
                     <li data-target="#index-carousel" data-slide-to="2"></li>
+                    <li data-target="#index-carousel" data-slide-to="3"></li>
+                    <li data-target="#index-carousel" data-slide-to="4"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="item active">
-                        <img src="{{ static('/images/carousel/2018/2/1.png') }}" alt="First slide" height="100"
-                             width="1000">
-                    </div>
-                    <div class="item">
-                        <img src="{{ static('/images/carousel/2018/2/2.png') }}" alt="Second slide" height="400"
-                             width="1000">
-                    </div>
-                    <div class="item">
-                        <img src="{{ static('/images/carousel/2018/2/3.png') }}" alt="Third slide" height="400"
-                             width="1000">
-                    </div>
+                    {% for car in carousels %}
+                        <div class="item{% if loop.first %} active{% endif %}">
+                            <img width="1000" height="400" src="{{ car.image.url }}" alt="{{ car.content }}">
+                        </div>
+                    {% endfor %}
                 </div>
                 <a class="carousel-control left" href="#index-carousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -82,52 +62,58 @@
             <div id="index-content">
                 <div id="content-newbooks" class="card">
                     <h3>新书上架</h3>
-                    {% include 'include/bookitem.html' %}
+                    {% if new_books is not none %}
+                        <div class="row">
+                            {% for book in new_books %}
+                                {{ macros.bookitem(book,'new'~loop.index) }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="content-hotbooks" class="card">
+                    <h3>热销推荐</h3>
+                    {% if hot_books is not none %}
+                        <div class="row">
+                            {% for book in hot_books %}
+                                {{ macros.bookitem(book,'hot'~loop.index) }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="content-likebooks" class="card">
+                    <h3>猜你喜欢</h3>
+                    {% if hot_books is not none %}
+                        <div class="row">
+                            {% for book in hot_books %}
+                                {{ macros.bookitem(book,'like'~loop.index) }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            <div id="sidebar-right" class="card">
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
-                something here
+            <div id="sidebar-right">
+                <div style="padding-top:10px;">
+                    <ul style="margin-bottom:10px;" class="list-group">
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading">新书热卖榜</h4>
+                        </li>
+                        {% for book in new_books %}
+                            <li class="list-group-item"><a href="">{{ loop.index }} {{ book.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading">图书畅销榜</h4>
+                        </li>
+                        {% for book in new_books %}
+                            <li class="list-group-item"><a href="">{{ loop.index }} {{ book.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

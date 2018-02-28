@@ -1,0 +1,51 @@
+{% macro bookitem(book,index) %}
+    <div id="book-item" class="col-sm-6 col-md-3">
+        <a href="" data-toggle="modal" data-target="#book-introduction{{ index }}" class="thumbnail">
+            <img src="{{ book.image.url }}">
+            <div class="caption">
+                <p>{{ book.name }}</p>
+                <p class="author">
+                    <span class="text-muted">{{ book.author }}</span> 著
+                    {% if book.translator %}
+                        ，<span class="text-muted">{{ book.translator }}</span> 译
+                    {% endif %}
+                </p>
+                <p><span class="price">{{ book.discount_price }}</span> <s>{{ book.original_price }}</s></p>
+            </div>
+        </a>
+    </div>
+    <div id="book-introduction{{ index }}" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <ol style="padding:0;margin:0;background-color:white;" class="modal-title breadcrumb">
+                        <li><a href="">{{ book.category.up }}</a></li>
+                        <li><a href="">{{ book.category }}</a></li>
+                    </ol>
+                </div>
+                <div style="height:460px;overflow-y:scroll;" class="modal-body">
+                    <img style="float:left;" src="{{ book.image.url }}">
+                    <h3>{{ book.name }}</h3>
+                    <p>售 价：¥{{ book.discount_price }}</p>
+                    <p>折 扣：{{ book.discount }}</p>
+                    <p>原 价：￥{{ book.original_price }}</p>
+                    <p>作 者：{{ book.author }}</p>
+                    {% if book.translator %}
+                        <p>译 者：{{ book.translator }}</p>
+                    {% endif %}
+                    <p>出 版 社：{{ book.press }}</p>
+                    <p>出版日期：{{ book.published_date }}</p>
+                    <p>页 数：{{ book.page_numbers }}</p>
+                    <p>{{ book.introduction | safe }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button style="float:left;" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button style="float:left;" class="btn btn-info" data-dismiss="modal">详细</button>
+                    <button class="btn btn-default">收藏</button>
+                    <button class="btn btn-primary">购买</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

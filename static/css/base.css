@@ -18,6 +18,26 @@
     margin-top: 20px;
 }
 
+body, button, ol, ul, li, p, dl, dd, h1, h2, h3, h4, h5, h6, img, iframe, input, form, textarea {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    border: 0;
+    font-size: 100%;
+}
+
+body {
+    background-color: #f4f5f5;
+}
+
+nav {
+    background-color: white !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
 .card {
     box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
     border-radius: 3px;
@@ -29,20 +49,4 @@
 /* 为了便于观察边框 */
 .myborder {
     border: solid 1px black;
-}
-
-body {
-    background-color: #f4f5f5;
-}
-
-nav {
-    background-color: white !important;
-}
-
-ul {
-    list-style-type: none;
-}
-
-a {
-    text-decoration: none !important;
 }

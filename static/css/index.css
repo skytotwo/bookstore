@@ -2,15 +2,6 @@
     padding: 0;
 }
 
-#sidebar-left {
-    padding: 10px 0 0;
-    margin: 0;
-}
-
-#index-content h3 {
-    margin-top: 15px;
-}
-
 #book-item .caption p {
     margin: 0;
     overflow: hidden;
@@ -41,6 +32,15 @@
     text-align: left;
 }
 
+.sidebar-left {
+    padding: 10px 0 0;
+    margin: 0;
+}
+
+.index-content h3 {
+    margin-top: 15px;
+}
+
 .thumbnail {
     border-color: white;
     padding-top: 10px;
@@ -57,4 +57,12 @@
 
 .col-md-8 {
     padding: 0 10px;
+}
+
+.list-group-item-heading {
+    margin-bottom: 0;
+}
+
+.list-heading {
+    background-color: #f4f5f5;
 }

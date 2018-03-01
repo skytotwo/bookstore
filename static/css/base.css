@@ -23,7 +23,6 @@ body, button, ol, ul, li, p, dl, dd, h1, h2, h3, h4, h5, h6, img, iframe, input,
     padding: 0;
     list-style-type: none;
     border: 0;
-    font-size: 100%;
 }
 
 body {
@@ -49,4 +48,12 @@ a {
 /* 为了便于观察边框 */
 .myborder {
     border: solid 1px black;
+}
+
+.back_top {
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    right: 32px;
+    top: 500px;
 }

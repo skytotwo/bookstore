@@ -24,7 +24,7 @@
                         <li><a href="">{{ book.category }}</a></li>
                     </ol>
                 </div>
-                <div style="height:460px;overflow-y:scroll;" class="modal-body">
+                <div style="height:400px;" class="modal-body">
                     <img style="float:left;" src="{{ book.image.url }}">
                     <h3>{{ book.name }}</h3>
                     <p>售 价：¥{{ book.discount_price }}</p>
@@ -37,11 +37,10 @@
                     <p>出 版 社：{{ book.press }}</p>
                     <p>出版日期：{{ book.published_date }}</p>
                     <p>页 数：{{ book.page_numbers }}</p>
-                    <p>{{ book.introduction | safe }}</p>
                 </div>
                 <div class="modal-footer">
                     <button style="float:left;" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button style="float:left;" class="btn btn-info" data-dismiss="modal">详细</button>
+                    <a style="float:left;" href="{{ url('book:detail',args=(book.id,)) }}" class="btn btn-info">详细</a>
                     <button class="btn btn-default">收藏</button>
                     <button class="btn btn-primary">购买</button>
                 </div>

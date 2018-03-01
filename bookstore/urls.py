@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('auth/', include('apps.authentication.urls', namespace='auth')),
     path('user/', include('apps.users.urls', namespace='user')),
+    path('book/', include('apps.books.urls', namespace='book')),
 ]
 
 # 前端显示media下的图片

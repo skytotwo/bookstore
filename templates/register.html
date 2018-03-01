@@ -27,3 +27,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ static('js/register.js') }}"></script>
+{% endblock %}

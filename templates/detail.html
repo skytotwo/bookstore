@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/detail.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="detail-heading card">
+                <h2>{{ book.name }}</h2>
+                <hr>
+                <img style="float:left;" width="300" height="300" src="{{ book.image.url }}">
+                <p>售 价：¥{{ book.discount_price }}</p>
+                <p>折 扣：{{ book.discount }}</p>
+                <p>原 价：￥{{ book.original_price }}</p>
+                <p>作 者：{{ book.author }}</p>
+                {% if book.translator %}
+                    <p>译 者：{{ book.translator }}</p>
+                {% endif %}
+                <p>版 次：{{ book.revision }}</p>
+                <p>出 版 社：{{ book.press }}</p>
+                <p>出版日期：{{ book.published_date }}</p>
+                <p>页 数：{{ book.page_numbers }}</p>
+                <p>存 货 量：{{ book.stock }}</p>
+                <p>销 售 量：{{ book.sales }}</p>
+            </div>
+            <div class="detail-content card">
+                <h3>内容简介</h3>
+                <hr>
+                {{ book.content_brief }}
+            </div>
+            <div class="detail-author card">
+                <h3>作者简介</h3>
+                <hr>
+                {{ book.author_brief }}
+            </div>
+            <div class="detail-catalog card">
+                <h3>目录</h3>
+                <hr>
+                {{ book.catalog }}
+            </div>
+            <div class="detail-comment card">
+                <h3>评论</h3>
+                <hr>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+                <p>something here</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

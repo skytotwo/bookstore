@@ -9,8 +9,8 @@
 {% block page_content %}
     <div class="row">
         <div class="col-md-2">
-            <div id="sidebar-left">
-                <div style="position:fixed;width:195px;" id="category" class="panel-group">
+            <div class="sidebar-left">
+                <div style="position:fixed;width:195px;" id="category" class="category panel-group">
                     {% for category in categories %}
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div id="top" class="col-md-8">
             <div id="index-carousel" class="card carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#index-carousel" data-slide-to="0" class="active"></li>
@@ -59,8 +59,8 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            <div id="index-content">
-                <div id="content-newbooks" class="card">
+            <div class="index-content">
+                <div class="content-newbooks card">
                     <h3>新书上架</h3>
                     {% if new_books is not none %}
                         <div class="row">
@@ -70,7 +70,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <div id="content-hotbooks" class="card">
+                <div class="content-hotbooks card">
                     <h3>热销推荐</h3>
                     {% if hot_books is not none %}
                         <div class="row">
@@ -80,7 +80,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <div id="content-likebooks" class="card">
+                <div class="content-likebooks card">
                     <h3>猜你喜欢</h3>
                     {% if hot_books is not none %}
                         <div class="row">
@@ -93,11 +93,12 @@
             </div>
         </div>
         <div class="col-md-2">
-            <div id="sidebar-right">
+            <div class="sidebar-right">
                 <div style="padding-top:10px;">
                     <ul style="margin-bottom:10px;" class="list-group">
-                        <li class="list-group-item">
-                            <h4 class="list-group-item-heading">新书热卖榜</h4>
+                        <li class="list-heading list-group-item">
+                            <h4 class="list-group-item-heading">
+                                <span class="glyphicon glyphicon-fire"></span> 新书热卖榜</h4>
                         </li>
                         {% for book in new_books %}
                             <li class="list-group-item"><a href="">{{ loop.index }} {{ book.name }}</a></li>
@@ -106,8 +107,9 @@
                 </div>
                 <div>
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <h4 class="list-group-item-heading">图书畅销榜</h4>
+                        <li class="list-heading list-group-item">
+                            <h4 class="list-group-item-heading">
+                                <span class="glyphicon glyphicon-heart"></span> 图书畅销榜</h4>
                         </li>
                         {% for book in new_books %}
                             <li class="list-group-item"><a href="">{{ loop.index }} {{ book.name }}</a></li>

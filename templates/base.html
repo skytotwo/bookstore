@@ -128,6 +128,8 @@
                             {% endif %}
                         </div>
                     </div>
+                    {# 返回顶部 #}
+                    <button class="back_top glyphicon glyphicon-chevron-up"></button>
                     {% block page_content %}
                     {% endblock %}
                 </div>
@@ -135,6 +137,7 @@
             {% block scripts %}
                 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
                 <script src="{{ static('js/bootstrap.min.js') }}"></script>
+                <script src="{{ static('js/base.js') }}"></script>
             {% endblock %}
         {% endblock %}
         </body>

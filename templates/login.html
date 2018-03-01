@@ -29,3 +29,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ static('js/login.js') }}"></script>
+{% endblock %}

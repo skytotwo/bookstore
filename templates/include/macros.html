@@ -26,7 +26,7 @@
                 </div>
                 <div style="height:400px;" class="modal-body">
                     <img style="float:left;" src="{{ book.image.url }}">
-                    <h3>{{ book.name }}</h3>
+                    <h3 style="padding-bottom:15px;">{{ book.name }}</h3>
                     <p>售 价：¥{{ book.discount_price }}</p>
                     <p>折 扣：{{ book.discount }}</p>
                     <p>原 价：￥{{ book.original_price }}</p>
@@ -34,9 +34,12 @@
                     {% if book.translator %}
                         <p>译 者：{{ book.translator }}</p>
                     {% endif %}
+                    <p>版 次：{{ book.revision }}</p>
                     <p>出 版 社：{{ book.press }}</p>
                     <p>出版日期：{{ book.published_date }}</p>
                     <p>页 数：{{ book.page_numbers }}</p>
+                    <p>存 货 量：{{ book.stock }}</p>
+                    <p>销 售 量：{{ book.sales }}</p>
                 </div>
                 <div class="modal-footer">
                     <button style="float:left;" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -47,4 +50,38 @@
             </div>
         </div>
     </div>
+{% endmacro %}
+
+{% macro pagination_widget(pagination,endpoint,fragment='') %}
+    <ul class="pagination">
+        {# 上一页 #}
+        <li {% if not pagination.has_prev %} class="disabled" {% endif %}>
+            <a href="{% if pagination.has_prev %}{{ url_for(endpoint,page=pagination.page - 1,**kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+                &laquo;</a>
+        </li>
+
+        {# 页数 #}
+        {% for p in pagination.iter_pages() %}
+            {% if p %}
+                {% if p==pagination.page %}
+                    <li class="active">
+                        <a href="{{ url_for(endpoint,page=p,**kwargs) }}{{ fragment }}">{{ p }}</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ url_for(endpoint,page=p,**kwargs) }}{{ fragment }}">{{ p }}</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="disabled"><a href="#">&hellip;</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {# 下一页 #}
+        <li {% if not pagination.has_next %} class="disabled" {% endif %}>
+            <a href="{% if pagination.has_next %}{{ url_for(endpoint,page=pagination.page + 1,**kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+                &raquo;
+            </a>
+        </li>
+    </ul>
 {% endmacro %}

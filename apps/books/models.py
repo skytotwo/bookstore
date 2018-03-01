@@ -55,7 +55,8 @@ class Book(models.Model):
         max_digits=2, decimal_places=1, verbose_name='折扣')
     stock = models.PositiveIntegerField(verbose_name='存货量')
     sales = models.PositiveIntegerField(verbose_name='销售量')
-    content_brief = models.TextField(blank=True, null=True, verbose_name='内容简介')
+    content_brief = models.TextField(
+        blank=True, null=True, verbose_name='内容简介')
     author_brief = models.TextField(blank=True, null=True, verbose_name='作者简介')
     catalog = models.TextField(blank=True, null=True, verbose_name='目录')
 
@@ -69,12 +70,18 @@ class Book(models.Model):
 
 class Comment(models.Model):
     book = models.ForeignKey(
-        Book, related_name='comments', on_delete=models.CASCADE)
+        Book,
+        related_name='comments',
+        on_delete=models.CASCADE,
+        verbose_name='图书')
     from apps.users.models import UserProfile
     user = models.ForeignKey(
-        UserProfile, related_name='comments', on_delete=models.CASCADE)
+        UserProfile,
+        related_name='comments',
+        on_delete=models.CASCADE,
+        verbose_name='用户')
     score = models.CharField(max_length=1, verbose_name='评分')
-    content = models.CharField(max_length=200, verbose_name='评论')
+    content = models.TextField(max_length=200, verbose_name='评论')
     published_time = models.DateTimeField(
         auto_now_add=True, verbose_name='发表时间')
 
@@ -83,4 +90,4 @@ class Comment(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.book
+        return self.book.name

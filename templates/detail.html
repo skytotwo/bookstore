@@ -44,21 +44,35 @@
             <div class="detail-comment card">
                 <h3>评论</h3>
                 <hr>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
-                <p>something here</p>
+                <ul style="list-style-type:none;padding:0;">
+                    {% for c in book.comments.all() %}
+                        <li style="border-bottom:1px solid #ddd;margin-bottom:15px;">
+                            {# 评论者信息 #}
+                            <div>
+                                {# 头像 #}
+                                <a href="">
+                                    <img style="float:left;" class="img-circle" width="40" height="40"
+                                         src="{{ c.user.avatar.url }}"></a>
+                                {# 点赞和评论 #}
+                                <div style="float:right;">
+                                    <a style="color:#b4b4b4;font-size:13px;" href="">
+                                        <i class="glyphicon glyphicon-thumbs-up"></i> 25</a>
+                                    <a style="color:#b4b4b4;font-size:13px;margin-left:10px;" href="">
+                                        <i class="glyphicon glyphicon-comment"></i> 14</a>
+                                </div>
+                                {# 昵称 #}
+                                <span style="margin-left:10px;font-size:16px;">{{ c.user.username }}</span>
+                                {# 发表时间 #}
+                                <p style="margin-left:50px;font-size:11px;" class="text-muted">
+                                    {{ c.published_time }}</p>
+                            </div>
+                            {# 评论内容 #}
+                            <div style="padding:15px;">
+                                {{ c.content }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

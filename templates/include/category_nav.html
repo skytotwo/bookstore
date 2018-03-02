@@ -10,12 +10,12 @@
                 </h4>
             </div>
             <div id="category{{ loop.index }}"
-                 class="panel-collapse collapse{% if category_books is not none %}{% if category_books[0].category.up.id==category.id %} in{% endif %}{% endif %}">
+                 class="panel-collapse collapse{% if current_category is not none %}{% if current_category.up.id==category.id %} in{% endif %}{% endif %}">
                 <div class="panel-body">
                     <ul>
                         {% for down in category.down.all() %}
                             <li>
-                                <a href="{{ url('book:category',args=(down.id,)) }}">
+                                <a href="{{ url('book:category',args=(down.id,1)) }}">
                                     {{ down.name }}
                                 </a>
                             </li>

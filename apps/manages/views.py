@@ -15,7 +15,7 @@ class IndexView(View):
             request, 'index.html', {
                 'new_books': new_books,
                 'hot_books': hot_books,
-                'category_books': None,
+                'current_category': None,
                 'carousels': carousels,
                 'categories': categories,
             })

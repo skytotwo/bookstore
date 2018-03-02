@@ -18,10 +18,12 @@ class DetailView(View):
 
 
 class CategoryView(View):
-    def get(self, request, category_id):
+    def get(self, request, category_id, page):
         categories = book_models.CategoryFirst.objects.order_by('name').all()
-        category_books = book_models.CategorySecond.objects.get(
-            id=category_id).books.all()
+        current_category = book_models.CategorySecond.objects.get(
+            id=category_id)
+        pagination = Paginator(current_category.books.all(), 16).page(page)
+        category_books = pagination.object_list
         new_books = book_models.CategorySecond.objects.get(
             id=category_id).books.order_by('added_time').all()[:10]
         hot_books = book_models.CategorySecond.objects.get(
@@ -30,6 +32,8 @@ class CategoryView(View):
             request, 'category.html', {
                 'categories': categories,
                 'category_books': category_books,
+                'current_category': current_category,
                 'new_books': new_books,
                 'hot_books': hot_books,
+                'pagination': pagination,
             })

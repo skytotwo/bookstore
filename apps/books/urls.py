@@ -9,7 +9,7 @@ urlpatterns = [
         views.DetailView.as_view(),
         name='detail'),
     path(
-        'category/<int:category_id>',
+        'category/<int:category_id>/<int:page>',
         views.CategoryView.as_view(),
         name='category'),
 ]

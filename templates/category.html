@@ -12,14 +12,25 @@
         <div class="col-md-offset-2 col-md-8">
             <div>
                 <ol class="card modal-title breadcrumb">
-                    <li>{{ category_books[0].category.up }}</li>
-                    <li>{{ category_books[0].category }}</li>
+                    <li>{{ current_category.up }}</li>
+                    <li>{{ current_category }}</li>
                 </ol>
             </div>
-            <div class="card category-main">
-                {% for book in category_books %}
-                    {{ macros.bookitem(book,loop.index) }}
-                {% endfor %}
+            {% if category_books %}
+                <div class="card category-main">
+                    {% for book in category_books %}
+                        {{ macros.bookitem(book,loop.index) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div style="margin:10px;" class="card">
+                {% if pagination and pagination.paginator.num_pages > 0 %}
+                    <nav style="text-align:center;">
+                        {{ macros.pagination_widget(pagination,'book:category',id=current_category.id) }}
+                    </nav>
+                {% else %}
+                    <p style="text-align:center;padding:10px;">当前类别下没有图书 :)</p>
+                {% endif %}
             </div>
         </div>
         {% include 'include/new_hot_list.html' %}

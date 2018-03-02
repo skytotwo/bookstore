@@ -80,7 +80,7 @@ class Comment(models.Model):
         related_name='comments',
         on_delete=models.CASCADE,
         verbose_name='用户')
-    score = models.CharField(max_length=1, verbose_name='评分')
+    score = models.PositiveSmallIntegerField(default=5, verbose_name='评分')
     content = models.TextField(max_length=200, verbose_name='评论')
     published_time = models.DateTimeField(
         auto_now_add=True, verbose_name='发表时间')

@@ -21,31 +21,40 @@
                     <button class="close" data-dismiss="modal">&times;</button>
                     <ol style="padding:0;margin:0;background-color:white;" class="modal-title breadcrumb">
                         <li>{{ book.category.up }}</li>
-                        <li><a href="{{ url('book:category',args=(book.category.id,)) }}">{{ book.category }}</a></li>
+                        <li><a href="{{ url('book:category',args=(book.category.id,1)) }}">{{ book.category }}</a></li>
                     </ol>
                 </div>
                 <div style="height:400px;" class="modal-body">
                     <img style="float:left;" src="{{ book.image.url }}">
-                    <h3 style="padding-bottom:15px;">{{ book.name }}</h3>
-                    <p>售 价：¥{{ book.discount_price }}</p>
-                    <p>折 扣：{{ book.discount }}</p>
-                    <p>原 价：￥{{ book.original_price }}</p>
+                    <h3 style="margin:0;">{{ book.name }}</h3>
+                    <hr>
+                    <div>
+                        <p>
+                            售 价：<span style="color:red;"><span
+                                style="font-size:1.2em;">￥{{ book.discount_price }}</span>({{ book.discount }}折)</span>
+                        </p>
+                        <p>原 价：￥{{ book.original_price }}</p>
+                    </div>
                     <p>作 者：{{ book.author }}</p>
                     {% if book.translator %}
                         <p>译 者：{{ book.translator }}</p>
                     {% endif %}
+                    <hr>
                     <p>版 次：{{ book.revision }}</p>
+                    <p>页 数：{{ book.page_numbers }}</p>
                     <p>出 版 社：{{ book.press }}</p>
                     <p>出版日期：{{ book.published_date }}</p>
-                    <p>页 数：{{ book.page_numbers }}</p>
+                    <hr>
                     <p>存 货 量：{{ book.stock }}</p>
                     <p>销 售 量：{{ book.sales }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button style="float:left;" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <a style="float:left;" href="{{ url('book:detail',args=(book.id,1)) }}" class="btn btn-info">详细</a>
-                    <button class="btn btn-default">收藏</button>
-                    <button class="btn btn-primary">购买</button>
+                    <button style="float:left;" class="btn btn-warning" data-dismiss="modal">关闭</button>
+                    <a style="float:left;" href="{{ url('book:detail',args=(book.id,1)) }}" class="btn btn-info">
+                        <span class="glyphicon glyphicon-book"></span> 详细</a>
+                    <button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> 收藏</button>
+                    <button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
+                    </button>
                 </div>
             </div>
         </div>

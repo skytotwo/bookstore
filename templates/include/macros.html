@@ -56,7 +56,7 @@
     <ul style="text-align:center;" class="pagination">
         {# 上一页 #}
         <li {% if not pagination.has_previous() %} class="disabled" {% endif %}>
-            <a href="{% if pagination.has_previous() %}{{ url(endpoint,args=(pagination.number - 1,id,)) }}{{ fragment }}{% else %}#{% endif %}">
+            <a href="{% if pagination.has_previous() %}{{ url(endpoint,args=(id,pagination.number - 1,)) }}{{ fragment }}{% else %}#{% endif %}">
                 &laquo;</a>
         </li>
 
@@ -65,11 +65,11 @@
             {% if p %}
                 {% if p==pagination.number %}
                     <li class="active">
-                        <a href="{{ url(endpoint,args=(p,id,)) }}{{ fragment }}">{{ p }}</a>
+                        <a href="{{ url(endpoint,args=(id,p,)) }}{{ fragment }}">{{ p }}</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{{ url(endpoint,args=(p,id,)) }}{{ fragment }}">{{ p }}</a>
+                        <a href="{{ url(endpoint,args=(id,p,)) }}{{ fragment }}">{{ p }}</a>
                     </li>
                 {% endif %}
             {% else %}
@@ -79,7 +79,7 @@
 
         {# 下一页 #}
         <li {% if not pagination.has_next() %} class="disabled" {% endif %}>
-            <a href="{% if pagination.has_next() %}{{ url(endpoint,args=(pagination.page + 1,id,)) }}{{ fragment }}{% else %}#{% endif %}">
+            <a href="{% if pagination.has_next() %}{{ url(endpoint,args=(id,pagination.number + 1,)) }}{{ fragment }}{% else %}#{% endif %}">
                 &raquo;
             </a>
         </li>

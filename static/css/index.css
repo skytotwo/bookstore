@@ -2,48 +2,8 @@
     padding: 0;
 }
 
-#book-item .caption p {
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-#book-item .price {
-    font-size: 1.3em;
-    color: red;
-}
-
-#book-item img {
-    width: 150px;
-    height: 150px;
-}
-
-#book-item .caption {
-    padding: 5px 16px 0;
-}
-
-#book-item .author {
-    font-size: .8em;
-}
-
-#category h4 a {
-    display: block;
-    text-align: left;
-}
-
-.sidebar-left {
-    padding: 10px 0 0;
-    margin: 0;
-}
-
 .index-content h3 {
-    margin-top: 15px;
-}
-
-.thumbnail {
-    border-color: white;
-    padding-top: 10px;
+    margin: 15px 0 5px 5px;
 }
 
 .card {
@@ -51,18 +11,8 @@
     padding: 0 10px;
 }
 
-.col-md-2 {
-    padding: 0;
-}
-
-.col-md-8 {
-    padding: 0 10px;
-}
-
-.list-group-item-heading {
-    margin-bottom: 0;
-}
-
-.list-heading {
-    background-color: #f4f5f5;
+.thumbnail {
+    border-color: white;
+    padding-top: 10px;
+    margin-bottom: 10px;
 }

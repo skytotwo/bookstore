@@ -20,8 +20,8 @@
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
                     <ol style="padding:0;margin:0;background-color:white;" class="modal-title breadcrumb">
-                        <li><a href="">{{ book.category.up }}</a></li>
-                        <li><a href="">{{ book.category }}</a></li>
+                        <li>{{ book.category.up }}</li>
+                        <li><a href="{{ url('book:category',args=(book.category.id,)) }}">{{ book.category }}</a></li>
                     </ol>
                 </div>
                 <div style="height:400px;" class="modal-body">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="modal-footer">
                     <button style="float:left;" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <a style="float:left;" href="{{ url('book:detail',args=(book.id,)) }}" class="btn btn-info">详细</a>
+                    <a style="float:left;" href="{{ url('book:detail',args=(book.id,1)) }}" class="btn btn-info">详细</a>
                     <button class="btn btn-default">收藏</button>
                     <button class="btn btn-primary">购买</button>
                 </div>
@@ -52,24 +52,24 @@
     </div>
 {% endmacro %}
 
-{% macro pagination_widget(pagination,endpoint,fragment='') %}
-    <ul class="pagination">
+{% macro pagination_widget(pagination,endpoint,id,fragment='') %}
+    <ul style="text-align:center;" class="pagination">
         {# 上一页 #}
-        <li {% if not pagination.has_prev %} class="disabled" {% endif %}>
-            <a href="{% if pagination.has_prev %}{{ url_for(endpoint,page=pagination.page - 1,**kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+        <li {% if not pagination.has_previous() %} class="disabled" {% endif %}>
+            <a href="{% if pagination.has_previous() %}{{ url(endpoint,args=(pagination.number - 1,id,)) }}{{ fragment }}{% else %}#{% endif %}">
                 &laquo;</a>
         </li>
 
         {# 页数 #}
-        {% for p in pagination.iter_pages() %}
+        {% for p in pagination.paginator.page_range %}
             {% if p %}
-                {% if p==pagination.page %}
+                {% if p==pagination.number %}
                     <li class="active">
-                        <a href="{{ url_for(endpoint,page=p,**kwargs) }}{{ fragment }}">{{ p }}</a>
+                        <a href="{{ url(endpoint,args=(p,id,)) }}{{ fragment }}">{{ p }}</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{{ url_for(endpoint,page=p,**kwargs) }}{{ fragment }}">{{ p }}</a>
+                        <a href="{{ url(endpoint,args=(p,id,)) }}{{ fragment }}">{{ p }}</a>
                     </li>
                 {% endif %}
             {% else %}
@@ -78,8 +78,8 @@
         {% endfor %}
 
         {# 下一页 #}
-        <li {% if not pagination.has_next %} class="disabled" {% endif %}>
-            <a href="{% if pagination.has_next %}{{ url_for(endpoint,page=pagination.page + 1,**kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+        <li {% if not pagination.has_next() %} class="disabled" {% endif %}>
+            <a href="{% if pagination.has_next() %}{{ url(endpoint,args=(pagination.page + 1,id,)) }}{{ fragment }}{% else %}#{% endif %}">
                 &raquo;
             </a>
         </li>

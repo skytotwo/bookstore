@@ -1,0 +1,25 @@
+.card {
+    padding: 0;
+    margin-top: 10px;
+}
+
+.col-md-8 {
+    padding: 0;
+}
+
+.category-main {
+    padding-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.thumbnail {
+    border-color: white;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.breadcrumb {
+    margin: 10px 10px 0;
+    padding: 10px;
+}

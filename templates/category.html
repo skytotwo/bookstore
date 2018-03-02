@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% import 'include/macros.html' as macros %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/category.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        {% include 'include/category_nav.html' %}
+        <div class="col-md-offset-2 col-md-8">
+            <div>
+                <ol class="card modal-title breadcrumb">
+                    <li>{{ category_books[0].category.up }}</li>
+                    <li>{{ category_books[0].category }}</li>
+                </ol>
+            </div>
+            <div class="card category-main">
+                {% for book in category_books %}
+                    {{ macros.bookitem(book,loop.index) }}
+                {% endfor %}
+            </div>
+        </div>
+        {% include 'include/new_hot_list.html' %}
+    </div>
+{% endblock %}

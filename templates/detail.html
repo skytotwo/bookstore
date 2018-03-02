@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'include/macros.html' as macros %}
 
 {% block styles %}
     {{ super() }}
@@ -41,7 +42,7 @@
                 <hr>
                 {{ book.catalog }}
             </div>
-            <div class="detail-comment card">
+            <div id="comments" class="detail-comment card">
                 <h3>评论</h3>
                 <hr>
                 <ul style="list-style-type:none;padding:0;">
@@ -73,6 +74,13 @@
                         </li>
                     {% endfor %}
                 </ul>
+                {% if pagination and pagination.paginator.num_pages > 0 %}
+                    <nav style="text-align:center;">
+                        {{ macros.pagination_widget(pagination,'book:detail',id=book.id,fragment='#comments') }}
+                    </nav>
+                {% else %}
+                    <p style="text-align:center;">当前图书没有评论，确认收货之后才能评论：）</p>
+                {% endif %}
             </div>
         </div>
     </div>

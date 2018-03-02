@@ -57,3 +57,45 @@ a {
     right: 32px;
     top: 500px;
 }
+
+#book-item .caption p {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#book-item .price {
+    font-size: 1.3em;
+    color: red;
+}
+
+#book-item img {
+    width: 150px;
+    height: 150px;
+}
+
+#book-item .caption {
+    padding: 5px 16px 0;
+}
+
+#book-item .author {
+    font-size: .8em;
+}
+
+.col-md-2 {
+    padding: 0;
+}
+
+.col-md-8 {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.list-group-item-heading {
+    margin-bottom: 0;
+}
+
+.list-heading {
+    background-color: #f4f5f5;
+}

@@ -75,9 +75,17 @@
                                 </div>
                                 {# 昵称 #}
                                 <span style="margin-left:10px;font-size:16px;">{{ c.user.username }}</span>
+                                {% for _ in range(c.score) %}
+                                    <span style="font-size:.8em;color:#ffb000;" class="glyphicon glyphicon-star"></span>
+                                {% endfor %}
+                                {% for _ in range(5-c.score) %}
+                                    <span style="font-size:.8em;color:#d3d3d3;"
+                                          class="glyphicon glyphicon-star-empty"></span>
+                                {% endfor %}
                                 {# 发表时间 #}
                                 <p style="margin-left:50px;font-size:11px;" class="text-muted">
-                                    {{ c.published_time }}</p>
+                                    {{ c.published_time }}
+                                </p>
                             </div>
                             {# 评论内容 #}
                             <div style="padding:15px;">

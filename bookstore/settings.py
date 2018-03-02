@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'apps.manages',
     'apps.books',
     'apps.users',
+    'apps.carts',
     'DjangoUeditor',
 ]
 
@@ -128,3 +129,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 # 文件上传路径
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 购物车
+CART_SESSION_ID = 'cart'

@@ -1,0 +1,37 @@
+<tr>
+    <td style="vertical-align:middle;"><input type="checkbox" title="选中"></td>
+    <td>
+        <a href="">
+            <img height="100px" width="100px" src="{{ book.image.url }}" class="img-thumbnail">
+        </a>
+    </td>
+    <td>
+        <div>
+            <a href="{{ url('book:detail',args=(book.id,1,)) }}"><p style="float:left;">{{ book.name }}</p></a>
+        </div>
+        <div>
+            <p style="margin:0;padding-top:60px;" class="text-muted">支持7天无理由退货</p>
+            <p style="margin:0;">选包装</p>
+        </div>
+    </td>
+    <td class="text-muted">￥{{ book.discount_price }}</td>
+    <td>
+        <span>
+            <a style="text-align:center;border:solid 1px lightgray;border-right:0;float:left;height:28px;width:28px;background-color: #f4f4f4;"
+               href="" type="button">-</a>
+            <input style="text-align:center;width:40px;height:28px;float:left;border:solid 1px lightgray;" type="text"
+                   value="{{ item.quantity }}">
+            <a style="text-align:center;border:solid 1px lightgray;border-left:0;float:left;height:28px;width:28px;background-color: #f4f4f4;"
+               href="" type="button">+</a>
+        </span>
+    </td>
+    <td style="color:red;">￥{{ item.total_price }}</td>
+    <td>
+        <div class="btn-group-vertical">
+            <button class="btn btn-sm btn-danger">删除</button>
+            <button class="btn btn-sm btn-warning">移入收藏</button>
+            <button class="btn btn-sm btn-info">加入收藏</button>
+        </div>
+
+    </td>
+</tr>

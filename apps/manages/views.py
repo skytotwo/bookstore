@@ -19,11 +19,11 @@ class IndexView(View):
         for i in range(len(recommend_hot_books)):
             result.append(recommend_hot_books[indexes[i]])
         recommend_hot_books = result[:10]
-        # 新书热卖
+        # 新书热卖榜
         start = timezone.now().date() + timezone.timedelta(days=-30)
         new_hot_books = book_models.Book.objects.filter(
             added_time__gte=start).order_by('-sales').all()[:10]
-        # 图书畅销
+        # 图书畅销榜
         hot_books = book_models.Book.objects.order_by('-sales').all()[:10]
 
         carousels = manage_models.Carousel.objects.order_by(

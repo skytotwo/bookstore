@@ -34,9 +34,10 @@
                         </p>
                         <p>定 价：￥{{ book.original_price }}</p>
                     </div>
-                    <p>作 者：{{ book.author }}</p>
+                    <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                        作 者：{{ book.author }}</p>
                     {% if book.translator %}
-                        <p>译 者：{{ book.translator }}</p>
+                        <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">译 者：{{ book.translator }}</p>
                     {% endif %}
                     <hr>
                     <p>版 次：{{ book.revision }}</p>
@@ -52,8 +53,8 @@
                     <a style="float:left;" href="{{ url('book:detail',args=(book.id,1)) }}" class="btn btn-info">
                         <span class="glyphicon glyphicon-book"></span> 详细</a>
                     <button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> 收藏</button>
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
-                    </button>
+                    <a href="{{ url('cart:add',args=(book.id,)) }}" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
+                    </a>
                 </div>
             </div>
         </div>

@@ -36,7 +36,7 @@
                 </p>
                 <hr>
                 <button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> 收藏</button>
-                <button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车</button>
+                <a href="{{ url('cart:add',args=(book.id,)) }}" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车</a>
             </div>
             <div class="detail-content card">
                 <h3>内容简介</h3>

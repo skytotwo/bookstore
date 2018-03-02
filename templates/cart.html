@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <div class="row">
+        <div style="margin:10px 0 0;padding:0;" class="col-md-12">
+            <form method="post" action="">
+                <table class="card table">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;"><input type="checkbox" title="全选"></th>
+                        <th style="width:120px;">图片</th>
+                        <th>信息</th>
+                        <th>单价（元）</th>
+                        <th>数量</th>
+                        <th>小计（元）</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in cart %}
+                        {% with book=item.book %}
+                            {% include 'include/cart_item.html' %}
+                        {% endwith %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

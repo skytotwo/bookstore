@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'apps.manages',
     'apps.books',
     'apps.users',
+    'DjangoUeditor',
 ]
 
 MIDDLEWARE = [

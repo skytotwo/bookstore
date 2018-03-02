@@ -14,11 +14,10 @@
                 <hr>
                 <img style="float:left;" src="{{ book.image.url }}">
                 <div>
-                    <p>
-                        售 价：<span style="color:red;"><span
+                    <p>售 价：<span style="color:red;"><span
                             style="font-size:1.2em;">￥{{ book.discount_price }}</span>({{ book.discount }}折)</span>
                     </p>
-                    <p>原 价：￥{{ book.original_price }}</p>
+                    <p>定 价：￥{{ book.original_price }}</p>
                 </div>
                 <p>作 者：{{ book.author }}</p>
                 {% if book.translator %}
@@ -42,17 +41,17 @@
             <div class="detail-content card">
                 <h3>内容简介</h3>
                 <hr>
-                {{ book.content_brief }}
+                {{ book.content_brief | safe }}
             </div>
             <div class="detail-author card">
                 <h3>作者简介</h3>
                 <hr>
-                {{ book.author_brief }}
+                {{ book.author_brief | safe }}
             </div>
             <div class="detail-catalog card">
                 <h3>目录</h3>
                 <hr>
-                {{ book.catalog }}
+                {{ book.catalog | safe }}
             </div>
             <div id="comments" class="detail-comment card">
                 <h3>评论</h3>

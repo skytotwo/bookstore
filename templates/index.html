@@ -47,9 +47,9 @@
                 </div>
                 <div class="content-hotbooks card">
                     <h3>热销推荐</h3>
-                    {% if hot_books is not none %}
+                    {% if recommend_hot_books is not none %}
                         <div class="row">
-                            {% for book in hot_books %}
+                            {% for book in recommend_hot_books %}
                                 {{ macros.bookitem(book,'hot'~loop.index) }}
                             {% endfor %}
                         </div>

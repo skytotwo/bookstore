@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from DjangoUeditor.models import UEditorField
 from apps.utils.storage import ImageStorage
 
 
@@ -55,10 +55,9 @@ class Book(models.Model):
         max_digits=2, decimal_places=1, verbose_name='折扣')
     stock = models.PositiveIntegerField(verbose_name='存货量')
     sales = models.PositiveIntegerField(verbose_name='销售量')
-    content_brief = models.TextField(
-        blank=True, null=True, verbose_name='内容简介')
-    author_brief = models.TextField(blank=True, null=True, verbose_name='作者简介')
-    catalog = models.TextField(blank=True, null=True, verbose_name='目录')
+    content_brief = UEditorField(blank=True, null=True, verbose_name='内容简介')
+    author_brief = UEditorField(blank=True, null=True, verbose_name='作者简介')
+    catalog = UEditorField(blank=True, null=True, verbose_name='目录')
 
     class Meta:
         verbose_name = '图书'

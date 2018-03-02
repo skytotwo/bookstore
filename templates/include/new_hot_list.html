@@ -6,7 +6,7 @@
                     <h4 class="list-group-item-heading">
                         <span class="glyphicon glyphicon-fire"></span> 新书热卖榜</h4>
                 </li>
-                {% for book in new_books %}
+                {% for book in new_hot_books %}
                     <li class="list-group-item">
                         <a href="{{ url('book:detail',args=(book.id,1)) }}">
                             {{ loop.index }} {{ book.name }}

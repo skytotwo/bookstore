@@ -29,11 +29,10 @@
                     <h3 style="margin:0;">{{ book.name }}</h3>
                     <hr>
                     <div>
-                        <p>
-                            售 价：<span style="color:red;"><span
+                        <p>售 价：<span style="color:red;"><span
                                 style="font-size:1.2em;">￥{{ book.discount_price }}</span>({{ book.discount }}折)</span>
                         </p>
-                        <p>原 价：￥{{ book.original_price }}</p>
+                        <p>定 价：￥{{ book.original_price }}</p>
                     </div>
                     <p>作 者：{{ book.author }}</p>
                     {% if book.translator %}

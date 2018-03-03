@@ -19,21 +19,23 @@ class DetailView(View):
 
 class CategoryView(View):
     def get(self, request, category_id, page):
-        categories = book_models.CategoryFirst.objects.order_by('name').all()
-        current_category = book_models.CategorySecond.objects.get(
-            id=category_id)
+        # 类别
+        categories = book_models.CategoryFirst.get_category_first()
+        current_category = book_models.CategorySecond.get_category_second(
+            category_id)
+        # 分页
         pagination = Paginator(current_category.books.all(), 16).page(page)
         category_books = pagination.object_list
-        new_books = book_models.CategorySecond.objects.get(
-            id=category_id).books.order_by('-added_time').all()[:10]
-        hot_books = book_models.CategorySecond.objects.get(
-            id=category_id).books.order_by('-sales').all()[:10]
+        # 新书热卖榜
+        new_hot_books = book_models.Book.get_new_hot_books(current_category)
+        # 图书畅销榜
+        hot_books = book_models.Book.get_hot_books(current_category)
         return render(
             request, 'category.html', {
                 'categories': categories,
                 'category_books': category_books,
                 'current_category': current_category,
-                'new_books': new_books,
+                'new_hot_books': new_hot_books,
                 'hot_books': hot_books,
                 'pagination': pagination,
             })

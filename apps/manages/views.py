@@ -9,26 +9,17 @@ from apps.manages import models as manage_models
 class IndexView(View):
     def get(self, request):
         # 新书上架
-        new_books = book_models.Book.objects.order_by('-added_time').all()[:10]
+        new_books = book_models.Book.get_new_books()
         # 热销推荐
-        recommend_hot_books = book_models.Book.objects.order_by(
-            '-sales').all()[:50]
-        indexes = list(range(len(recommend_hot_books)))
-        random.shuffle(indexes)
-        result = []
-        for i in range(len(recommend_hot_books)):
-            result.append(recommend_hot_books[indexes[i]])
-        recommend_hot_books = result[:10]
+        recommend_hot_books = book_models.Book.get_recommend_hot_books()
         # 新书热卖榜
-        start = timezone.now().date() + timezone.timedelta(days=-30)
-        new_hot_books = book_models.Book.objects.filter(
-            added_time__gte=start).order_by('-sales').all()[:10]
+        new_hot_books = book_models.Book.get_new_hot_books()
         # 图书畅销榜
-        hot_books = book_models.Book.objects.order_by('-sales').all()[:10]
-
-        carousels = manage_models.Carousel.objects.order_by(
-            '-added_time').all()[:5]
-        categories = book_models.CategoryFirst.objects.order_by('name').all()
+        hot_books = book_models.Book.get_hot_books()
+        # 轮播
+        carousels = manage_models.Carousel.get_carousels()
+        # 一级类别
+        categories = book_models.CategoryFirst.get_category_first()
         return render(
             request, 'index.html', {
                 'new_books': new_books,

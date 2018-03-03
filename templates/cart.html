@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/cart.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block page_content %}
     <div class="row">
-        <div style="margin:10px 0 0;padding:0;" class="col-md-12">
+        <div style="padding:0;" class="col-md-12">
             <form method="post" action="">
-                <table class="card table">
+                <table style="margin-bottom:10px;" class="card table">
                     <thead>
                     <tr>
-                        <th style="width: 30px;"><input type="checkbox" title="全选"></th>
+                        <th style="width:40px;">
+                            <input style="margin-left:15px;" class="check-all" type="checkbox" title="全选"
+                                   checked="checked">
+                        </th>
                         <th style="width:120px;">图片</th>
                         <th>信息</th>
                         <th>单价（元）</th>
@@ -17,7 +25,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for item in cart %}
+                    {% for item in cart.get_items() %}
                         {% with book=item.book %}
                             {% include 'include/cart_item.html' %}
                         {% endwith %}
@@ -25,6 +33,86 @@
                     </tbody>
                 </table>
             </form>
+            <div id="settlement" class="card">
+                <div class="pull-left">
+                    <input type="checkbox" class="check-all" title="全选" checked="checked">全选
+                    <button style="margin-left:20px;" class="btn btn-warning">删除选中</button>
+                </div>
+                <div class="pull-right">
+                    <span style="margin-right:20px;">已选择 <span id="checked-items"
+                                                               style="color:red;font-size:1.2em;">0</span> 本图书</span>
+                    <span style="margin-right:20px;">总价：<span id="total_price"
+                                                              style="color:red;font-size:1.2em;">￥{{ cart.get_total_price() }}</span></span>
+                    <button class="btn btn-primary">结算</button>
+                </div>
+            </div>
+            <div style="margin-bottom:20px;" class="card">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#like" data-toggle="tab">猜你喜欢</a>
+                    </li>
+                    <li><a href="#collection" data-toggle="tab">我的收藏</a></li>
+                    <li><a href="#recently" data-toggle="tab">最近浏览</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="like">
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                    </div>
+                    <div class="tab-pane fade" id="collection">
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                    </div>
+                    <div class="tab-pane fade" id="recently">
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ static('js/cart.js') }}"></script>
 {% endblock %}

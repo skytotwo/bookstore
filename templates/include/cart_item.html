@@ -1,5 +1,7 @@
 <tr>
-    <td style="vertical-align:middle;"><input type="checkbox" title="选中"></td>
+    <td style="vertical-align:middle;">
+        <input style="margin-left:15px;" class="check-one" type="checkbox" title="选中" checked="checked">
+    </td>
     <td>
         <a href="">
             <img height="100px" width="100px" src="{{ book.image.url }}" class="img-thumbnail">
@@ -14,24 +16,23 @@
             <p style="margin:0;">选包装</p>
         </div>
     </td>
-    <td class="text-muted">￥{{ book.discount_price }}</td>
+    <td class="discount-price text-muted">￥{{ book.discount_price }}</td>
     <td>
         <span>
             <a style="text-align:center;border:solid 1px lightgray;border-right:0;float:left;height:28px;width:28px;background-color: #f4f4f4;"
                href="" type="button">-</a>
             <input style="text-align:center;width:40px;height:28px;float:left;border:solid 1px lightgray;" type="text"
-                   value="{{ item.quantity }}">
+                   value="{{ item.quantity }}" title="数量">
             <a style="text-align:center;border:solid 1px lightgray;border-left:0;float:left;height:28px;width:28px;background-color: #f4f4f4;"
                href="" type="button">+</a>
         </span>
     </td>
-    <td style="color:red;">￥{{ item.total_price }}</td>
+    <td style="color:red;" class="subtotal-price">￥{{ item.get_subtotal_price() }}</td>
     <td>
         <div class="btn-group-vertical">
-            <button class="btn btn-sm btn-danger">删除</button>
+            <a href="{{ url('cart:remove',args=(item.id,)) }}" class="btn btn-sm btn-danger">删除</a>
             <button class="btn btn-sm btn-warning">移入收藏</button>
             <button class="btn btn-sm btn-info">加入收藏</button>
         </div>
-
     </td>
 </tr>

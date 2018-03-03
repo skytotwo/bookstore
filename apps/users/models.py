@@ -16,3 +16,9 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def create_cart(self):
+        from apps.carts.models import Cart
+        cart = Cart()
+        cart.user = self
+        cart.save()

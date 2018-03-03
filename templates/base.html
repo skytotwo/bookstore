@@ -60,7 +60,7 @@
                                     <li>
                                         <a href="{{ url('cart:detail') }}">
                                             <span class="glyphicon glyphicon-shopping-cart"></span> 购物车
-                                            <span class="badge">18</span>
+                                            <span class="badge">{{ request.user.cart.get_total_quantity() }}</span>
                                         </a>
                                     </li>
                                     <li class="dropdown">

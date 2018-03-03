@@ -1,0 +1,19 @@
+.fixed {
+    position: fixed;
+    width: 1230px;
+    bottom: 0;
+    right: 0;
+    padding: 10px 40px !important;
+}
+
+#settlement {
+    padding: 10px;
+}
+
+.card {
+    margin-top: 10px;
+}
+
+.tab-pane {
+    padding: 20px;
+}

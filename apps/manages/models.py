@@ -14,3 +14,7 @@ class Carousel(models.Model):
 
     def __str__(self):
         return self.content
+
+    @staticmethod
+    def get_carousels(number=5):
+        return Carousel.objects.order_by('-added_time').all()[:number]

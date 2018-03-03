@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from DjangoUeditor.models import UEditorField
 from apps.utils.storage import ImageStorage
 
@@ -12,6 +13,10 @@ class CategoryFirst(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_category_first():
+        return CategoryFirst.objects.order_by('name').all()
 
 
 class CategorySecond(models.Model):
@@ -28,6 +33,10 @@ class CategorySecond(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_category_second(category_id):
+        return CategorySecond.objects.get(id=category_id)
 
 
 class Book(models.Model):
@@ -65,6 +74,50 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_new_hot_books(current_category=None):
+        start = timezone.now().date() + timezone.timedelta(days=-30)
+        if current_category:
+            new_hot_books = current_category.books.filter(
+                added_time__gte=start).order_by('-sales').all()[:10]
+        else:
+            new_hot_books = Book.objects.filter(
+                added_time__gte=start).order_by('-sales').all()[:10]
+        return new_hot_books
+
+    @staticmethod
+    def get_hot_books(current_category=None):
+        if current_category:
+            hot_books = current_category.books.order_by('-sales').all()[:10]
+        else:
+            hot_books = Book.objects.order_by('-sales').all()[:10]
+        return hot_books
+
+    @staticmethod
+    def get_recommend_hot_books(current_category=None):
+        import random
+        if current_category:
+            recommend_hot_books = current_category.books.order_by(
+                '-sales').all()[:50]
+        else:
+            recommend_hot_books = Book.objects.order_by('-sales').all()[:50]
+        indexes = list(range(len(recommend_hot_books)))
+        random.shuffle(indexes)
+        result = []
+        for i in range(len(recommend_hot_books)):
+            result.append(recommend_hot_books[indexes[i]])
+        recommend_hot_books = result[:10]
+        return recommend_hot_books
+
+    @staticmethod
+    def get_new_books(current_category=None):
+        if current_category:
+            new_books = current_category.books.order_by(
+                '-added_time').all()[:10]
+        else:
+            new_books = Book.objects.order_by('-added_time').all()[:10]
+        return new_books
 
 
 class Comment(models.Model):

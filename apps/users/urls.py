@@ -3,4 +3,7 @@ from . import views
 
 app_name = 'users'
 
-urlpatterns = []
+urlpatterns = [
+    path(
+        'order-create/', views.OrderCreateView.as_view(), name='order-create'),
+]

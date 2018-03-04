@@ -40,3 +40,27 @@ class RecipientAdmin(admin.ModelAdmin):
         'name',
         'phone_number',
     )
+
+
+@admin.register(models.Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'recipient',
+        'item',
+        'payment_method',
+        'payment_amount',
+        'paid',
+        'created_time',
+        'finished_time',
+        'state',
+    )
+
+    ordering = (
+        'user',
+        'recipient',
+    )
+
+    search_fields = ('user', )
+
+    list_filter = ('created_time', )

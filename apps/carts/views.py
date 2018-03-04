@@ -2,7 +2,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views.generic.base import View
 from apps.books import models as book_models
-from apps.manages import models as manage_models
 
 
 class CartDetailView(View):
@@ -30,4 +29,7 @@ class CartRemoveView(View):
 
 class CartSettlementView(View):
     def get(self, request):
-        return render(request, 'settlement.html', )
+        return render(
+            request,
+            'settlement.html',
+        )

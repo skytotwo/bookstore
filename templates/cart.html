@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'include/macros.html' as macros %}
 
 {% block styles %}
     {{ super() }}
@@ -7,7 +8,7 @@
 
 {% block page_content %}
     <div class="row">
-        <div style="padding:0;" class="col-md-12">
+        <div style="padding:0;" class="col-md-offset-2 col-md-8">
             <form method="post" action="">
                 <table style="margin-bottom:10px;" class="card table">
                     <thead>
@@ -43,7 +44,7 @@
                                                                style="color:red;font-size:1.2em;">0</span> 本图书</span>
                     <span style="margin-right:20px;">总价：<span id="total_price"
                                                               style="color:red;font-size:1.2em;">￥{{ cart.get_total_price() }}</span></span>
-                    <button class="btn btn-primary">结算</button>
+                    <a href="{{ url('cart:settlement') }}" class="btn btn-primary">结算</a>
                 </div>
             </div>
             <div style="margin-bottom:20px;" class="card">
@@ -56,55 +57,31 @@
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade in active" id="like">
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        {% if hot_books is not none %}
+                            <div class="row">
+                                {% for book in hot_books %}
+                                    {{ macros.bookitem(book,'like'~loop.index) }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="tab-pane fade" id="collection">
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        {% if hot_books is not none %}
+                            <div class="row">
+                                {% for book in hot_books %}
+                                    {{ macros.bookitem(book,'like'~loop.index) }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="tab-pane fade" id="recently">
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
-                        <p>菜鸟教程是一个提供最新的web技术站点</p>
+                        {% if hot_books is not none %}
+                            <div class="row">
+                                {% for book in hot_books %}
+                                    {{ macros.bookitem(book,'like'~loop.index) }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 .fixed {
     position: fixed;
-    width: 1230px;
+    width: 100%;
     bottom: 0;
     right: 0;
-    padding: 10px 40px !important;
+    padding: 10px 19% !important;
 }
 
 #settlement {
@@ -15,5 +15,11 @@
 }
 
 .tab-pane {
-    padding: 20px;
+    padding: 20px 20px 0;
+}
+
+.thumbnail {
+    border-color: white;
+    padding-top: 10px;
+    margin-bottom: 10px;
 }

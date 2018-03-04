@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/settlement.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="card">
+                <h3>收货人信息</h3>
+                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+            </div>
+            <div class="card">
+                <h3>购物清单</h3>
+                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+            </div>
+            <div class="card">
+                <h3>支付方式</h3>
+                <p>支付宝</p>
+                <p>微信</p>
+            </div>
+            <div class="commit-order card">
+                <div class="pull-right">
+                    <span style="margin-right:20px;font-size:1.2em;">共 <span style="color:red;">4</span> 本图书</span>
+                    <span style="margin-right:20px;font-size:1.2em;">应付总额：<span style="color:red;">￥123.34</span></span>
+                    <button class="btn btn-primary">提交订单</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

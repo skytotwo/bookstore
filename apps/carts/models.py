@@ -21,6 +21,9 @@ class Cart(models.Model):
     def get_items(self):
         return self.item.all()
 
+    def get_checked_items(self):
+        return self.item.filter(checked=True).all()
+
     def add(self, book):
         # 购物车存在该书则+1
         items = self.get_items()
@@ -66,6 +69,7 @@ class CartItem(models.Model):
         on_delete=models.CASCADE,
         verbose_name='所属购物车')
     quantity = models.PositiveSmallIntegerField(default=1, verbose_name='数量')
+    checked = models.BooleanField(default=True, verbose_name='选中')
 
     class Meta:
         verbose_name = '购物项'

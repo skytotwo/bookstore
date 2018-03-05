@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <table style="margin:10px 0 20px;" class="card table">
+                <thead>
+                <tr>
+                    <th>收货人</th>
+                    <th>图书</th>
+                    <th>支付方式</th>
+                    <th>支付金额</th>
+                    <th>下单时间</th>
+                    <th>完成时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>
+                            <p>{{ order.recipient }}</p>
+                        </td>
+                        <td>
+                            <p>{{ order.item }}</p>
+                        </td>
+                        <td>
+                            <p>{{ order.payment_method.get_name_display() }}</p>
+                        </td>
+                        <td>
+                            <p>{{ order.payment_amount }}</p>
+                        </td>
+                        <td>
+                            <p>{{ order.created_time }}</p>
+                        </td>
+                        <td>
+                            <p>{{ order.finished_time | default('-',True) }}</p>
+                        </td>
+                        <td>
+                            <p>{{ order.get_state_display() }}</p>
+                        </td>
+                        <td>
+                            <div class="btn-group-vertical">
+                                <a href=""
+                                   class="btn btn-sm btn-danger">删除</a>
+                                <button class="btn btn-sm btn-warning">评价</button>
+                                <button class="btn btn-sm btn-info">再次购买</button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

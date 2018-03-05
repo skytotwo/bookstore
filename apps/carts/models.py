@@ -51,9 +51,23 @@ class Cart(models.Model):
             total_quantity += item.quantity
         return total_quantity
 
+    def get_checked_total_quantity(self):
+        total_quantity = 0
+        items = self.get_checked_items()
+        for item in items:
+            total_quantity += item.quantity
+        return total_quantity
+
     def get_total_price(self):
         total_price = 0
         items = self.get_items()
+        for item in items:
+            total_price += item.get_subtotal_price()
+        return total_price
+
+    def get_checked_total_price(self):
+        total_price = 0
+        items = self.get_checked_items()
         for item in items:
             total_price += item.get_subtotal_price()
         return total_price

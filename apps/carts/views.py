@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views.generic.base import View
+from . import forms as cart_forms
 from apps.books import models as book_models
-from apps.users import forms as user_forms
+from apps.manages import models as manage_models
 
 
 class CartDetailView(View):
@@ -30,7 +31,14 @@ class CartRemoveView(View):
 
 class CartSettlementView(View):
     def get(self, request):
-        settlement_form = user_forms.SettlementForm(user=request.user)
-        return render(request, 'settlement.html', {
-            'settlement_form': settlement_form,
-        })
+        settlement_form = cart_forms.SettlementForm()
+        recipient = request.user.recipient.order_by('-default').all()
+        cart = request.user.cart
+        payment_method = manage_models.Payment.objects.all()
+        return render(
+            request, 'settlement.html', {
+                'settlement_form': settlement_form,
+                'recipient': recipient,
+                'cart': cart,
+                'payment_method': payment_method,
+            })

@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+{% import "include/macros.html" as macros %}
+
+{% block styles %}
+    {{ super() }}
+    <link href="{{ static('css/settings.css') }}" rel="stylesheet">
+{% endblock %}
+
+{# 必须把data-spy放在body才能实现滚动监听 #}
+{% block body_attribs %}
+    data-spy="scroll" data-target="#myScrollspy" data-offset="80"
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-2" id="myScrollspy">
+            <ul class="nav nav-pills nav-stacked" data-spy="affix">
+                <li class="active"><a href="#personal">个人信息</a></li>
+                <li><a href="#addRecipient">收货地址</a></li>
+                <li><a href="#changePassword">修改密码</a></li>
+                <li><a href="#changeEmail">修改邮箱</a></li>
+                <li><a href="#message">邮件通知</a></li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <div id="personal" class="card">
+                <table class="table">
+                    <caption><h2>个人信息</h2></caption>
+                    <tbody>
+                    {# 第一个需要用col-md，后面只需要加上row #}
+                    <tr class="row">
+                        <td class="col-md-3">
+                            <img src="{{ request.user.avatar.url }}" class="img-thumbnail" height="72" width="72">
+                        </td>
+                        <td class="col-md-9">
+                            <div>
+                                <p class="text-muted">支持 jpg、png 格式大小 5M 以内的图片</p>
+                                <button type="button" class="btn btn-primary">更改头像</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="text-muted">邮箱</td>
+                        <td class="text-muted">{{ request.user.email }}</td>
+                    </tr>
+                    <tr class="row">
+                        <td class="text-muted">昵称</td>
+                        <td>
+                            <form method="post" action="{{ url('user:settings-post',args=('change-username',)) }}">
+                                {{ csrf_input }}
+                                <div class="input-group">
+                                    <input class="form-control" type="text" value="{{ request.user.username }}"
+                                           name="username">
+                                    <span class="input-group-btn">
+                                        <input class="btn btn-primary" type="submit" value="修改">
+                                    </span>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="text-muted">注册时间</td>
+                        <td class="text-muted">{{ request.user.date_joined }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="addRecipient" class="card">
+                <table class="table">
+                    <caption><h2>收货地址</h2></caption>
+                    <tbody>
+                    <tr class="row">
+                        <td class="col-md-3 text-muted">
+                            <ul id="recipient-name" class="nav nav-pills">
+                                {% for re in recipients %}
+                                    <li class="{% if re.default %}active{% endif %}">
+                                        <a href="#{{ re.id }}" data-toggle="tab">
+                                            {{ re.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td class="col-md-9">
+                            <div id="recipient-content" class="tab-content">
+                                {% for re in recipients %}
+                                    <div class="tab-pane fade in{% if re.default %} active{% endif %}"
+                                         id="{{ re.id }}">
+                                        <form method="post"
+                                              action="{{ url('user:settings-post',args=('update-recipient',)) }}">
+                                            {{ csrf_input }}
+                                            <input type="number" name="id" value="{{ re.id }}" hidden="hidden">
+                                            <ul style="margin-bottom:0;" class="list-group">
+                                                <li class="list-group-item">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">收货人</span>
+                                                        <input name="name" type="text" class="form-control"
+                                                               value="{{ re.name }}">
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">手机号</span>
+                                                        <input name="phone_number" type="text" class="form-control"
+                                                               value="{{ re.phone_number }}">
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">地区</span>
+                                                        <input name="region" type="text" class="form-control"
+                                                               value="{{ re.region }}">
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">地址</span>
+                                                        <input name="address" type="text" class="form-control"
+                                                               value="{{ re.address }}">
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">邮编</span>
+                                                        <input name="zip_code" type="text" class="form-control"
+                                                               value="{{ re.zip_code }}">
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <label>默认地址：</label>
+                                                    <input name="default" type="checkbox"
+                                                           {% if re.default %}checked="checked"{% endif %}>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <button type="submit" class="btn btn-primary">修改</button>
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="row">
+                        <td></td>
+                        <td>
+                            <button type="button" data-toggle="modal" data-target="#new-recipient"
+                                    class="btn btn-primary pull-right">
+                                添加
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="changePassword" class="card">
+                <form method="post" action="{{ url('user:settings-post',args=('change-password',)) }}">
+                    {{ csrf_input }}
+                    <table class="table">
+                        <caption><h2>更改密码</h2></caption>
+                        <tbody>
+                        <tr class="row">
+                            <td class="col-md-3 text-muted">原密码</td>
+                            <td class="col-md-9">
+                                <input name="old_password" class="form-control" type="password">
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="text-muted">新密码</td>
+                            <td>
+                                <input name="new_password" class="form-control" type="password">
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="text-muted">确认密码</td>
+                            <td>
+                                <input name="repeat" class="form-control" type="password">
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td></td>
+                            <td>
+                                <input value="修改" class="btn btn-primary pull-right" type="submit">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div id="changeEmail" class="card">
+                <form method="post" action="{{ url('user:settings-post',args=('change-email',)) }}">
+                    <table class="table">
+                        <caption><h2>更改邮箱</h2></caption>
+                        <tbody>
+                        <tr class="row">
+                            <td class="col-md-3 text-muted">新邮箱</td>
+                            <td class="col-md-9">
+                                <input name="email" class="form-control" type="password">
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="text-muted">密码</td>
+                            <td>
+                                <input name="password" class="form-control" type="password">
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td></td>
+                            <td>
+                                <input value="修改" class="btn btn-primary pull-right" type="submit">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div style="margin-bottom:20px;" id="message" class="card">
+                <form role="form">
+                    <table class="table">
+                        <caption><h2>邮件通知</h2></caption>
+                        <tbody>
+                        <tr class="row">
+                            <td class="col-md-3 text-muted">每周精选</td>
+                            <td class="col-md-9">
+                                <div class="radio">
+                                    <label class="setting-radio">
+                                        <input type="radio" name="weeklySelection" value="yes" checked>开启
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="weeklySelection" value="no">关闭
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="text-muted">收藏降价</td>
+                            <td>
+                                <div class="radio">
+                                    <label class="setting-radio">
+                                        <input type="radio" name="followNotice" value="yes" checked>开启
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="followNotice" value="no">关闭
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="text-muted">订单状态</td>
+                            <td>
+                                <div class="radio">
+                                    <label class="setting-radio">
+                                        <input type="radio" name="starNotice" value="yes" checked>开启
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="starNotice" value="no">关闭
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="text-muted">评价提醒</td>
+                            <td>
+                                <div class="radio">
+                                    <label class="setting-radio">
+                                        <input type="radio" name="evaluateNotice" value="yes" checked>开启
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="evaluateNotice" value="no">关闭
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td></td>
+                            <td>
+                                <input type="submit" class="btn btn-primary pull-right" value="确认">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="new-recipient" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ url('user:settings-post',args=('add-recipient',)) }}" method="post">
+                    {{ csrf_input }}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">添加新地址</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul style="margin-bottom:0;" class="list-group">
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">收货人</span>
+                                    <input name="name" type="text" class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">手机号</span>
+                                    <input name="phone_number" type="text" class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">地区</span>
+                                    <input name="region" type="text" class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">地址</span>
+                                    <input name="address" type="text" class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="input-group">
+                                    <span class="input-group-addon">邮编</span>
+                                    <input name="zip_code" type="text" class="form-control">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <label>默认地址：</label>
+                                <input name="default" type="checkbox">
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

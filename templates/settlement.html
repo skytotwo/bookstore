@@ -10,28 +10,104 @@
         <div class="col-md-offset-2 col-md-8">
             <div class="card">
                 <h4>收货人信息</h4>
+                <ul style="margin-bottom:20px;" id="recipient-name" class="nav nav-pills">
+                    {% for re in recipient %}
+                        <li id="{{ re.id }}" style="margin-right:10px;"
+                            class="{% if re.default %}active{% endif %}">
+                            <a href="#{{ re.id }}" data-toggle="tab">
+                                {{ re.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div id="recipient-content" class="tab-content">
+                    {% for re in recipient %}
+                        <div class="tab-pane fade in{% if re.default %} active{% endif %}" id="{{ re.id }}">
+                            <ul style="margin-bottom:0;" class="list-group">
+                                <li class="list-group-item"><span class="text-muted">收货人：</span>{{ re.name }}</li>
+                                <li class="list-group-item"><span
+                                        class="text-muted">手机号：</span>{{ re.phone_number }}
+                                </li>
+                                <li class="list-group-item"><span class="text-muted">地区：</span>{{ re.region }}</li>
+                                <li class="list-group-item"><span class="text-muted">地址：</span>{{ re.address }}</li>
+                                <li class="list-group-item"><span class="text-muted">邮编：</span>{{ re.zip_code }}
+                                </li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="card">
                 <h4>购物清单</h4>
+                <table style="margin-bottom:10px;" class="table">
+                    <thead>
+                    <tr>
+                        <th style="width:120px;">图片</th>
+                        <th>信息</th>
+                        <th>单价（元）</th>
+                        <th>数量</th>
+                        <th>小计（元）</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in cart.get_checked_items() %}
+                        {% with book=item.book %}
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <img height="100px" width="100px" src="{{ book.image.url }}"
+                                             class="img-thumbnail">
+                                    </a>
+                                </td>
+                                <td>
+                                    <div>
+                                        <a href="{{ url('book:detail',args=(book.id,1,)) }}">
+                                            <p style="float:left;">{{ book.name }}</p></a>
+                                    </div>
+                                    <div>
+                                        <p style="margin:0;padding-top:60px;" class="text-muted">支持7天无理由退货</p>
+                                        <p style="margin:0;">选包装</p>
+                                    </div>
+                                </td>
+                                <td class="discount-price text-muted">￥{{ book.discount_price }}</td>
+                                <td>
+                                    <p>{{ item.quantity }}</p>
+                                </td>
+                                <td style="color:red;" class="subtotal-price">￥{{ item.get_subtotal_price() }}</td>
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
             <div class="card">
                 <h4>支付方式</h4>
-                <form action="{{ url('user:test') }}" method="post">
-                    {{ csrf_input }}
-                    <label for="test">test</label>
-                    <input type="text" name="test">
-                    <input type="submit" value="提交">
-                    <p>{{ text }}</p>
-                </form>
+                <ul id="pay_ul" style="margin-bottom:20px;" class="nav nav-pills">
+                    {% for pay in payment_method %}
+                        <li id="{{ pay.id }}" style="margin-right:10px;"
+                            class="{% if pay.name=='alipay' %}active{% endif %}">
+                            <a href="" data-toggle="tab">
+                                {{ pay.get_name_display() }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
-            <div class="commit-order card">
+            <div style="margin-bottom:20px;" class="commit-order card">
                 <div class="pull-right">
-                    <span style="margin-right:20px;font-size:1.2em;">共 <span style="color:red;">4</span> 本图书</span>
+                    <span style="margin-right:20px;font-size:1.2em;">共 <span
+                            style="color:red;">{{ cart.get_checked_total_quantity() }}</span> 本图书</span>
                     <span style="margin-right:20px;font-size:1.2em;">应付总额：<span
-                            style="color:red;">￥123.34</span></span>
-                    <a href="{{ url('user:order-create') }}" class="btn btn-primary">付款</a>
+                            style="color:red;">￥{{ cart.get_checked_total_price() }}</span></span>
+                    <button id="pay_btn" type="submit" class="btn btn-primary">付款
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ static('js/settlement.js') }}"></script>
 {% endblock %}

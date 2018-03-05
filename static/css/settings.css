@@ -1,0 +1,29 @@
+body {
+    position: relative;
+}
+
+td.text-muted {
+    font-size: 18px;
+}
+
+.table td {
+    vertical-align: middle !important;
+    padding: 15px !important;
+}
+
+.setting-radio {
+    margin-right: 30px;
+}
+
+.card {
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+#myScrollspy {
+    padding-top: 120px;
+}

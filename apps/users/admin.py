@@ -31,6 +31,7 @@ class RecipientAdmin(admin.ModelAdmin):
         'region',
         'address',
         'zip_code',
+        'default',
     )
 
     ordering = ('user', )

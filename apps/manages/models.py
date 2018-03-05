@@ -21,7 +21,7 @@ class Carousel(models.Model):
 
 
 class Payment(models.Model):
-    PAYMENT_METHOD_CHOICES = (('支付宝', '支付宝'), ('微信', '微信'))
+    PAYMENT_METHOD_CHOICES = (('alipay', '支付宝'), ('wechat', '微信'))
     name = models.CharField(
         max_length=10, choices=PAYMENT_METHOD_CHOICES, verbose_name='名称')
 

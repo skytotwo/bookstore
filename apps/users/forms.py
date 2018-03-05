@@ -1,19 +1,31 @@
 from django import forms
 
 
-class SettlementForm(forms.Form):
-    from apps.manages.models import Payment
-    recipient = forms.ChoiceField(required=True, label='', choices=[])
-    payment_method = forms.ChoiceField(
-        required=True,
-        label='',
-        choices=Payment.objects.all().values_list('id', 'name'))
-
-    def __init__(self, user, *args, **kwargs):
-        super(SettlementForm, self).__init__(*args, **kwargs)
-        self.fields['recipient'].choices = user.recipient.all().values_list(
-            'id', 'name')
+class ChangePasswordForm(forms.Form):
+    old_password = forms.PasswordInput()
+    new_password = forms.PasswordInput()
+    repeat = forms.PasswordInput()
 
 
-class TestForm(forms.Form):
-    test = forms.CharField()
+class ChangeEmailForm(forms.Form):
+    email = forms.EmailInput()
+    password = forms.PasswordInput()
+
+
+class ChangeUsernameForm(forms.Form):
+    username = forms.CharField(required=True)
+
+
+class RecipientForm(forms.Form):
+    id = forms.IntegerField(required=False)
+    name = forms.CharField()
+    phone_number = forms.CharField(max_length=11)
+    region = forms.CharField()
+    address = forms.CharField()
+    zip_code = forms.CharField(max_length=6)
+    default = forms.BooleanField(required=False)
+
+
+class OrderForm(forms.Form):
+    recipient_id = forms.IntegerField()
+    payment_method_id = forms.IntegerField()

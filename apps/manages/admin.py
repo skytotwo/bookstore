@@ -15,3 +15,14 @@ class CarouselAdmin(admin.ModelAdmin):
     search_fields = ('content', )
 
     list_filter = ('added_time', )
+
+
+@admin.register(models.Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+
+    ordering = ('name', )
+
+    search_fields = ('name', )
+
+    list_filter = ('name', )

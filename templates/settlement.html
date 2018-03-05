@@ -9,26 +9,26 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="card">
-                <h3>收货人信息</h3>
-                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+                <h4>收货人信息</h4>
             </div>
             <div class="card">
-                <h3>购物清单</h3>
-                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
-                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
-                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
-                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
-                <p>周润豪 安徽 合肥市 蜀山区 城区合肥工业大学(翡翠湖校区) 187****8722</p>
+                <h4>购物清单</h4>
             </div>
             <div class="card">
-                <h3>支付方式</h3>
-                <p>支付宝</p>
-                <p>微信</p>
+                <h4>支付方式</h4>
+                <form action="{{ url('user:test') }}" method="post">
+                    {{ csrf_input }}
+                    <label for="test">test</label>
+                    <input type="text" name="test">
+                    <input type="submit" value="提交">
+                    <p>{{ text }}</p>
+                </form>
             </div>
             <div class="commit-order card">
                 <div class="pull-right">
                     <span style="margin-right:20px;font-size:1.2em;">共 <span style="color:red;">4</span> 本图书</span>
-                    <span style="margin-right:20px;font-size:1.2em;">应付总额：<span style="color:red;">￥123.34</span></span>
+                    <span style="margin-right:20px;font-size:1.2em;">应付总额：<span
+                            style="color:red;">￥123.34</span></span>
                     <a href="{{ url('user:order-create') }}" class="btn btn-primary">付款</a>
                 </div>
             </div>

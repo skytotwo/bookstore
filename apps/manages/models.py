@@ -18,3 +18,16 @@ class Carousel(models.Model):
     @staticmethod
     def get_carousels(number=5):
         return Carousel.objects.order_by('-added_time').all()[:number]
+
+
+class Payment(models.Model):
+    PAYMENT_METHOD_CHOICES = (('支付宝', '支付宝'), ('微信', '微信'))
+    name = models.CharField(
+        max_length=10, choices=PAYMENT_METHOD_CHOICES, verbose_name='名称')
+
+    class Meta:
+        verbose_name = '支付方式'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name

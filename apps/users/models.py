@@ -35,6 +35,7 @@ class Recipient(models.Model):
     region = models.CharField(max_length=50, verbose_name='地区')
     address = models.CharField(max_length=100, verbose_name='详细地址')
     zip_code = models.CharField(max_length=6, verbose_name='邮编')
+    default = models.BooleanField(default=False, verbose_name='默认')
 
     class Meta:
         verbose_name = '收货人信息'
@@ -46,8 +47,8 @@ class Recipient(models.Model):
 
 class Order(models.Model):
     from apps.carts.models import CartItem
+    from apps.manages.models import Payment
     STATE_CHOICES = (('P', '进行'), ('F', '完成'))
-    PAYMENT_METHOD_CHOICES = (('alipay', '支付宝'), ('wechat', '微信'))
     user = models.ForeignKey(
         UserProfile,
         related_name='order',
@@ -63,8 +64,11 @@ class Order(models.Model):
         related_name='order',
         on_delete=models.DO_NOTHING,
         verbose_name='图书')
-    payment_method = models.CharField(
-        choices=PAYMENT_METHOD_CHOICES, max_length=5, verbose_name='支付方式')
+    payment_method = models.ForeignKey(
+        Payment,
+        related_name='order',
+        on_delete=models.DO_NOTHING,
+        verbose_name='支付方式')
     payment_amount = models.DecimalField(
         max_digits=7, decimal_places=2, verbose_name='付款金额')
     paid = models.BooleanField(default=False, verbose_name='已支付')

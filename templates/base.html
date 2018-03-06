@@ -40,8 +40,10 @@
                                 </li>
                                 {% if request.user.is_authenticated %}
                                     <li>
-                                        <a href="">
-                                            <span class="glyphicon glyphicon-map-marker"></span> 安徽</a>
+                                        <a>
+                                            <span class="glyphicon glyphicon-map-marker"></span>
+                                            <span id="location"></span>
+                                        </a>
                                     </li>
                                 {% endif %}
                             </ul>

@@ -16,6 +16,7 @@ class CartItemAdmin(admin.ModelAdmin):
     list_display = (
         'book',
         'cart',
+        'order',
         'quantity',
     )
 

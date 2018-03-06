@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from apps.utils.storage import ImageStorage
 
@@ -23,6 +24,12 @@ class UserProfile(AbstractUser):
         cart.user = self
         cart.save()
 
+    def get_processing_orders(self):
+        return self.order.filter(state='P').all()
+
+    def get_finished_orders(self):
+        return self.order.filter(state='F').all()
+
 
 class Recipient(models.Model):
     user = models.ForeignKey(
@@ -46,7 +53,6 @@ class Recipient(models.Model):
 
 
 class Order(models.Model):
-    from apps.carts.models import CartItem
     from apps.manages.models import Payment
     STATE_CHOICES = (('P', '进行'), ('F', '完成'))
     user = models.ForeignKey(
@@ -59,11 +65,6 @@ class Order(models.Model):
         related_name='order',
         on_delete=models.DO_NOTHING,
         verbose_name='收货人信息')
-    item = models.ForeignKey(
-        CartItem,
-        related_name='order',
-        on_delete=models.DO_NOTHING,
-        verbose_name='图书')
     payment_method = models.ForeignKey(
         Payment,
         related_name='order',
@@ -94,10 +95,20 @@ class Order(models.Model):
             payment_amount=payment_amount,
             paid=False,
             state='P')
-        for item in items:
-            order.item = item
         order.save()
+        for item in items:
+            item.order = order
+            item.save()
 
     def add_items(self, items):
         self.item = items
+        self.save()
+
+    def get_items(self):
+        from apps.carts.models import CartItem
+        return CartItem.objects.filter(order=self)
+
+    def confirm(self):
+        self.state = 'F'
+        self.finished_time = timezone.now()
         self.save()

@@ -92,10 +92,13 @@ class SettingsView(View):
 
 class OrderView(View):
     def get(self, request):
-        orders = request.user.order.all()
-        return render(request, 'order.html', {
-            'orders': orders,
-        })
+        processing_orders = request.user.get_processing_orders()
+        finished_orders = request.user.get_finished_orders()
+        return render(
+            request, 'order.html', {
+                'processing_orders': processing_orders,
+                'finished_orders': finished_orders,
+            })
 
     def post(self, request):
         post = request.POST
@@ -109,8 +112,18 @@ class OrderView(View):
                 payment_method=manage_models.Payment.objects.get(
                     id=post.get('payment_method_id')),
                 payment_amount=user.cart.get_checked_total_price())
-            return render(request, 'order.html', {
-                'order_form': order_form,
-            })
+            # 将购物车中已经下单的图书移除
+            user.cart.remove_checked_items()
+            return HttpResponseRedirect(reverse('user:order'))
         else:
-            return HttpResponseRedirect(reverse('cart:settlement'))
+            messages.info(request, '表单验证失败')
+            return render(
+                request,
+                'settlement.html',
+            )
+
+
+class ConfirmOrderView(View):
+    def get(self, request, order_id):
+        request.user.order.get(id=order_id).confirm()
+        return HttpResponseRedirect(reverse('user:order'))

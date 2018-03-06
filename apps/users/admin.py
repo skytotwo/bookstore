@@ -48,7 +48,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'user',
         'recipient',
-        'item',
         'payment_method',
         'payment_amount',
         'paid',

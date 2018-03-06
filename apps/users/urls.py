@@ -10,4 +10,8 @@ urlpatterns = [
         views.SettingsView.as_view(),
         name='settings-post'),
     path('order/', views.OrderView.as_view(), name='order'),
+    path(
+        'confirm/<int:order_id>',
+        views.ConfirmOrderView.as_view(),
+        name='confirm'),
 ]

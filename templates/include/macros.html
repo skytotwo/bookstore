@@ -1,3 +1,4 @@
+{# 图书展示 #}
 {% macro bookitem(book,index) %}
     <div id="book-item" class="col-sm-6 col-md-3">
         <a href="" data-toggle="modal" data-target="#book-introduction{{ index }}" class="thumbnail">
@@ -37,7 +38,8 @@
                     <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
                         作 者：{{ book.author }}</p>
                     {% if book.translator %}
-                        <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">译 者：{{ book.translator }}</p>
+                        <p style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">译
+                            者：{{ book.translator }}</p>
                     {% endif %}
                     <hr>
                     <p>版 次：{{ book.revision }}</p>
@@ -53,7 +55,8 @@
                     <a style="float:left;" href="{{ url('book:detail',args=(book.id,1)) }}" class="btn btn-info">
                         <span class="glyphicon glyphicon-book"></span> 详细</a>
                     <button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> 收藏</button>
-                    <a href="{{ url('cart:add',args=(book.id,)) }}" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
+                    <a href="{{ url('cart:add',args=(book.id,)) }}" class="btn btn-primary"><span
+                            class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
                     </a>
                 </div>
             </div>
@@ -61,6 +64,7 @@
     </div>
 {% endmacro %}
 
+{# 分页 #}
 {% macro pagination_widget(pagination,endpoint,id,fragment='') %}
     <ul style="text-align:center;" class="pagination">
         {# 上一页 #}
@@ -93,4 +97,67 @@
             </a>
         </li>
     </ul>
+{% endmacro %}
+
+{# 订单列表 #}
+{% macro order_list(orders) %}
+    <table style="margin:0;" class="table">
+        <thead>
+        <tr>
+            <th>收货人</th>
+            <th>图书</th>
+            <th>支付方式</th>
+            <th>支付金额</th>
+            <th>下单时间</th>
+            <th>完成时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>
+                    <p>{{ order.recipient }}</p>
+                </td>
+                <td>
+                    {% for item in order.get_items() %}
+                        <a style="display:block;" href="{{ url('book:detail',args=(item.book.id,1,)) }}">
+                            {{ loop.index }}. {{ item }}
+                        </a>
+                    {% endfor %}
+                </td>
+                <td>
+                    <p>{{ order.payment_method.get_name_display() }}</p>
+                </td>
+                <td>
+                    <p style="color:red;">{{ order.payment_amount }}</p>
+                </td>
+                <td>
+                    <p>{{ order.created_time }}</p>
+                </td>
+                <td>
+                    <p>{{ order.finished_time | default('-',True) }}</p>
+                </td>
+                <td>
+                    <p style="color:red;">{{ order.get_state_display() }}</p>
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        {% if order.state=='P' %}
+                            <button class="btn btn-sm btn-danger">取消订单</button>
+                            <button class="btn btn-sm btn-info">延迟收货</button>
+                            <a href="{{ url('user:confirm',args=(order.id,)) }}" class="btn btn-sm btn-warning">确认收货</a>
+                        {% else %}
+                            <a href="" class="btn btn-sm btn-danger">删除</a>
+                            <button class="btn btn-sm btn-info">评价</button>
+                            <button class="btn btn-sm btn-warning">再次购买</button>
+                        {% endif %}
+
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endmacro %}

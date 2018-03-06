@@ -44,6 +44,12 @@ class Cart(models.Model):
                 item.delete()
                 self.save()
 
+    def remove_checked_items(self):
+        items = self.get_checked_items()
+        for item in items:
+            item.cart = None
+            item.save()
+
     def get_total_quantity(self):
         total_quantity = 0
         items = self.get_items()
@@ -74,14 +80,23 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
+    from apps.users.models import Order
     book = models.ForeignKey(
         Book, related_name='item', on_delete=models.CASCADE, verbose_name='图书')
     cart = models.ForeignKey(
         Cart,
-        default=1,
+        blank=True,
+        null=True,
         related_name='item',
         on_delete=models.CASCADE,
         verbose_name='所属购物车')
+    order = models.ForeignKey(
+        Order,
+        blank=True,
+        null=True,
+        related_name='item',
+        on_delete=models.CASCADE,
+        verbose_name='所属订单')
     quantity = models.PositiveSmallIntegerField(default=1, verbose_name='数量')
     checked = models.BooleanField(default=True, verbose_name='选中')
 
@@ -92,5 +107,22 @@ class CartItem(models.Model):
     def __str__(self):
         return self.book.name
 
+    def minus_item(self):
+        if self.quantity > 1:
+            self.quantity -= 1
+            self.save()
+
+    def update_quantity(self, quantity):
+        if quantity > 0:
+            self.quantity = quantity
+            self.save()
+
     def get_subtotal_price(self):
         return self.quantity * self.book.discount_price
+
+    def change_checked(self, option):
+        if option == 'checked':
+            self.checked = True
+        elif option == 'cancel':
+            self.checked = False
+        self.save()

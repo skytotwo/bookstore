@@ -14,8 +14,7 @@
                     <thead>
                     <tr>
                         <th style="width:40px;">
-                            <input style="margin-left:15px;" class="check-all" type="checkbox" title="全选"
-                                   checked="checked">
+                            <input style="margin-left:15px;" class="check-all" type="checkbox" title="全选">
                         </th>
                         <th style="width:120px;">图片</th>
                         <th>信息</th>
@@ -36,15 +35,16 @@
             </form>
             <div id="settlement" class="card">
                 <div class="pull-left">
-                    <input type="checkbox" class="check-all" title="全选" checked="checked">全选
-                    <button style="margin-left:20px;" class="btn btn-warning">删除选中</button>
+                    <input style="margin-left:12px;" type="checkbox" class="check-all" title="全选">全选
+                    <a style="margin-left:20px;" href="{{ url('cart:remove-checked') }}"
+                       class="btn btn-warning">删除选中</a>
                 </div>
                 <div class="pull-right">
                     <span style="margin-right:20px;">已选择 <span id="checked-items"
                                                                style="color:red;font-size:1.2em;">0</span> 本图书</span>
                     <span style="margin-right:20px;">总价：<span id="total_price"
                                                               style="color:red;font-size:1.2em;">￥{{ cart.get_total_price() }}</span></span>
-                    <a href="{{ url('cart:settlement') }}" class="btn btn-primary">结算</a>
+                    <a id="settlement-btn" href="{{ url('cart:settlement') }}" class="btn btn-primary">结算</a>
                 </div>
             </div>
             <div style="margin-bottom:20px;" class="card">

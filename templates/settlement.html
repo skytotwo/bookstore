@@ -12,8 +12,8 @@
                 <h4>收货人信息</h4>
                 <ul style="margin-bottom:20px;" id="recipient-name" class="nav nav-pills">
                     {% for re in recipient %}
-                        <li id="{{ re.id }}" style="margin-right:10px;"
-                            class="{% if re.default %}active{% endif %}">
+                        <li style="margin-right:10px;"
+                            class="update_recipient{% if re.default %} active{% endif %}">
                             <a href="#{{ re.id }}" data-toggle="tab">
                                 {{ re.name }}
                             </a>
@@ -82,10 +82,10 @@
             </div>
             <div class="card">
                 <h4>支付方式</h4>
-                <ul id="pay_ul" style="margin-bottom:20px;" class="nav nav-pills">
+                <ul id="payment_method" style="margin-bottom:20px;" class="nav nav-pills">
                     {% for pay in payment_method %}
                         <li id="{{ pay.id }}" style="margin-right:10px;"
-                            class="{% if pay.name=='alipay' %}active{% endif %}">
+                            class="update_payment{% if pay.name=='alipay' %} active{% endif %}">
                             <a href="" data-toggle="tab">
                                 {{ pay.get_name_display() }}
                             </a>
@@ -99,8 +99,12 @@
                             style="color:red;">{{ cart.get_checked_total_quantity() }}</span> 本图书</span>
                     <span style="margin-right:20px;font-size:1.2em;">应付总额：<span
                             style="color:red;">￥{{ cart.get_checked_total_price() }}</span></span>
-                    <button id="pay_btn" type="submit" class="btn btn-primary">付款
-                    </button>
+                    <form style="display:inline-block;" action="{{ url('user:order') }}" method="post">
+                        {{ csrf_input }}
+                        <input type="number" name="recipient_id" hidden="hidden">
+                        <input type="number" name="payment_method_id" hidden="hidden">
+                        <button type="submit" class="btn btn-primary">付款</button>
+                    </form>
                 </div>
             </div>
         </div>

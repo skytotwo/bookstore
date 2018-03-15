@@ -1,10 +1,10 @@
 # 开发环境与工具
 
 * 开发环境：Ubuntu 16.04
-* 开发工具：PyCharm
-* 开发语言：Python
-* 后端框架：Django
-* 前端框架：Bootstrap
+* 开发工具：PyCharm 2017.3.4
+* 开发语言：Python 3.5.2
+* 后端框架：Django 2.0.2
+* 前端框架：Bootstrap 3.3.7
 
 # 主要模块
 

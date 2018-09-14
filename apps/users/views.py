@@ -130,7 +130,6 @@ class OrderView(View):
 
 # 提交订单
 @login_required
-class ConfirmOrderView(View):
-    def get(self, request, order_id):
-        request.user.order.get(id=order_id).confirm()
-        return HttpResponseRedirect(reverse('user:order'))
+def confirm_order(request, order_id):
+    request.user.order.get(id=order_id).confirm()
+    return HttpResponseRedirect(reverse('user:order'))

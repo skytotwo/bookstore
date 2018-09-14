@@ -55,6 +55,17 @@ class LoginForm(forms.Form):
             'placeholder': '密码',
             'class': 'form-control'
         }))
+    validate_code = forms.CharField(
+        required=True,
+        label='',
+        min_length=4,
+        max_length=4,
+        widget=forms.TextInput(attrs={
+            'id': 'validate-input',
+            'placeholder': '验证码',
+            'class': 'form-control'
+        })
+    )
     remember = forms.BooleanField(
         required=False,
         label='',

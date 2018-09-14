@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-from apps.utils.storage import ImageStorage
+from apps.utils.image_storage import ImageStorage
 
 
 class UserProfile(AbstractUser):

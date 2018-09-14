@@ -1,4 +1,4 @@
-#inputEmail, #inputPassword {
+#inputEmail, #inputPassword, #validate-input {
     padding: 20px;
 }
 
@@ -9,7 +9,14 @@
 }
 
 #inputPassword {
-    margin-bottom: 15px;
+    margin-bottom: -1px;
+    margin-top: -1px;
+    border-radius: 0;
+}
+
+#validate-input {
+    margin-top: -2px; /*-1px还是会显示很重的阴影*/
+    margin-bottom: 5px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }

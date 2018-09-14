@@ -1,12 +1,15 @@
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib import messages
 from django.views.generic.base import View
+from django.contrib.auth.decorators import login_required
 from . import models as user_models
 from apps.manages import models as manage_models
 from . import forms as user_forms
 
 
+# 设置
+@login_required
 class SettingsView(View):
     def get(self, request):
         recipients = user_models.Recipient.objects.all()
@@ -90,6 +93,8 @@ class SettingsView(View):
             })
 
 
+# 订单
+@login_required
 class OrderView(View):
     def get(self, request):
         processing_orders = request.user.get_processing_orders()
@@ -123,6 +128,8 @@ class OrderView(View):
             )
 
 
+# 提交订单
+@login_required
 class ConfirmOrderView(View):
     def get(self, request, order_id):
         request.user.order.get(id=order_id).confirm()

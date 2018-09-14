@@ -1,5 +1,5 @@
 from django.db import models
-from apps.utils.storage import ImageStorage
+from apps.utils.image_storage import ImageStorage
 
 
 class Carousel(models.Model):

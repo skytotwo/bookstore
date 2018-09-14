@@ -18,13 +18,14 @@
                     <li role="presentation"><a href="{{ url('auth:register') }}">注册</a></li>
                 </ul>
                 <br>
-                <form class="login-form" method="post" action="{{ url('auth:login') }}">
+                <form class="login-form" method="post" action="{{ url('auth:login') }}" onsubmit="return encrypt()">
                     {{ csrf_input }}
                     {{ login_form }}
                     <label for="remember">自动登录</label>
-                    <a href="" class="pull-right">忘记密码?</a>
+                    <img id='validate-img' class="pull-right" src="{{ url('auth:validate-code') }}" alt="验证码"/>
                     <input type="submit" class='btn btn-primary btn-block' value="登录"/>
                 </form>
+                <input type="hidden" id="public-key" value="{{ public_key }}"/>
             </div>
         </div>
     </div>
@@ -32,5 +33,6 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="{{ static('js/jsencrypt.min.js') }}"></script>
     <script src="{{ static('js/login.js') }}"></script>
 {% endblock %}

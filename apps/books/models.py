@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from DjangoUeditor.models import UEditorField
-from apps.utils.storage import ImageStorage
+from apps.utils.image_storage import ImageStorage
 
 
 class CategoryFirst(models.Model):
@@ -79,11 +79,13 @@ class Book(models.Model):
     def get_new_hot_books(current_category=None):
         start = timezone.now().date() + timezone.timedelta(days=-30)
         if current_category:
-            new_hot_books = current_category.books.filter(
-                added_time__gte=start).order_by('-sales').all()[:10]
+            # new_hot_books = current_category.books.filter(
+            #     added_time__gte=start).order_by('-sales').all()[:10]
+            new_hot_books = current_category.books.order_by('-sales').all()[:10]
         else:
-            new_hot_books = Book.objects.filter(
-                added_time__gte=start).order_by('-sales').all()[:10]
+            # new_hot_books = Book.objects.filter(
+            #     added_time__gte=start).order_by('-sales').all()[:10]
+            new_hot_books = Book.objects.order_by('-sales').all()[:10]
         return new_hot_books
 
     @staticmethod

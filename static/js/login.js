@@ -17,6 +17,7 @@ function encrypt() {
     // 加密
     var password = $('#inputPassword');
     var cipher = encrypt.encrypt(password.val());
+    // 设置input的值
     password.val(cipher);
     return true;
 }

@@ -27,3 +27,9 @@ def index(request):
             'categories': categories,
             'current_category': None,
         })
+
+
+# 404
+# 必须加上**kwargs
+def page_not_found(request, **kwargs):
+    return render(request, '404.html')

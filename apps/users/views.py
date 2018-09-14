@@ -3,14 +3,15 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib import messages
 from django.views.generic.base import View
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models as user_models
 from apps.manages import models as manage_models
 from . import forms as user_forms
 
 
 # 设置
-@login_required
-class SettingsView(View):
+# LoginRequiredMixin是用于类级别的登录限制
+class SettingsView(LoginRequiredMixin, View):
     def get(self, request):
         recipients = user_models.Recipient.objects.all()
         recipient_form = user_forms.RecipientForm()
@@ -94,8 +95,7 @@ class SettingsView(View):
 
 
 # 订单
-@login_required
-class OrderView(View):
+class OrderView(LoginRequiredMixin, View):
     def get(self, request):
         processing_orders = request.user.get_processing_orders()
         finished_orders = request.user.get_finished_orders()

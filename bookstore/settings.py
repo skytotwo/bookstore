@@ -10,7 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nnozy2hfnfgv2gn843*llt1uw#jkt4u4r33$y@3nh1c1+=qbjl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,19 +91,19 @@ AUTH_USER_MODEL = 'users.UserProfile'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+            'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+            'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+            'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -124,7 +124,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# 不能和STATIC_ROOT路径相同
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'bookstore/static'),
+]
 
 # 文件上传路径
 MEDIA_URL = '/media/'
@@ -132,3 +136,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 购物车
 CART_SESSION_ID = 'cart'
+
+# login_required重定向
+LOGIN_URL = '/auth/login'

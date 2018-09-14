@@ -13,8 +13,8 @@ def generate_validate_code(size=(120, 30),
                            mode="RGB",
                            bg_color=(255, 255, 255),
                            fg_color=(0, 0, 255),
-                           font_size=18,
-                           font_type="Monaco.ttf",
+                           font_size=16,
+                           font_type="/usr/share/fonts/truetype/freefont/FreeMono.ttf",
                            length=4,
                            draw_lines=True,
                            n_line=(1, 2),
@@ -76,8 +76,8 @@ def generate_validate_code(size=(120, 30),
         """
         c_chars = get_chars()
         strs = ' %s ' % ' '.join(c_chars)  # 每个字符前后以空格隔开
-        # font = ImageFont.truetype(font_type, font_size)
-        font = ImageFont.load_default().font
+        font = ImageFont.truetype(font_type, font_size)
+        # font = ImageFont.load_default().font
         font_width, font_height = font.getsize(strs)
         draw.text(((width - font_width) / 3, (height - font_height) / 3),
                   strs, font=font, fill=fg_color)
